@@ -2,6 +2,8 @@
 
 Layer to abstract communication with Yapay Payment API.
 
+[![Build Status](https://travis-ci.org/rockbuzz/sdk-yapay.svg?branch=master)](https://travis-ci.org/rockbuzz/sdk-yapay)
+
 ## Requirements
 
 PHP: >=7.0
