@@ -4,6 +4,8 @@ namespace Rockbuzz\SDKYapay\Payment;
 
 class Address
 {
+    const DEFAULT_COUNTRY = 'BR';
+
     /**
      * @var string
      */
@@ -52,7 +54,7 @@ class Address
         string $neighborhood,
         string $city,
         string $state,
-        string $country = 'BR'
+        string $country = self::DEFAULT_COUNTRY
     )
     {
         $this->street = $street;
@@ -97,11 +99,17 @@ class Address
 
     public function getState()
     {
-        return $this->state;
+        if (strlen($this->state) != 2) {
+            throw new \InvalidArgumentException('state must be two characters');
+        }
+        return strtoupper($this->state);
     }
  
     public function getCountry()
     {
-        return $this->country;
+        if (strlen($this->country) != 2) {
+            throw new \InvalidArgumentException('country must be two characters');
+        }
+        return strtoupper($this->country);
     }
 }

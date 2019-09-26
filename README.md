@@ -107,9 +107,10 @@ $result = $payment->done();
 
 $result->isSuccess();
 $about = $result->about();
+$jsonAbout = json_encode($about);
 ```
 
-`About Result Success CredidtCard`
+`Json About Result Success CredidtCard`
 ```javascript
 {
     "nsu": "xxxxxxx",
@@ -132,7 +133,7 @@ $about = $result->about();
 }
 ```
 
-`About Result Success Boleto`
+`Json About Result Success Boleto`
 ```javascript
 {
     "valor": 100,
@@ -148,7 +149,7 @@ $about = $result->about();
 }
 ```
 
-`About Result Fail`
+`Json About Result Fail`
 ```javascript
 {
     "erro": {
@@ -158,6 +159,11 @@ $about = $result->about();
     "statusTransacao": 0,
     "codigoEstabelecimento": "xxxxxxxxxxxxxx"
 }
+```
+
+`Payment done can throw an exception`
+```php
+Rockbuzz\SDKYapay\Exception\PaymentException::class
 ```
 
 ## Contributing
