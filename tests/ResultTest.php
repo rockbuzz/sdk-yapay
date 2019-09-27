@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Result;
+namespace Tests;
 
 use PHPUnit\Framework\TestCase;
 use Rockbuzz\SDKYapay\Result;

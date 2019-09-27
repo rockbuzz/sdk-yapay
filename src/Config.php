@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Rockbuzz\SDKYapay;
 
 class Config
@@ -54,6 +56,11 @@ class Config
 
     public function getEndpoint(): string
     {
+        if (!filter_var($this->endpoint, FILTER_VALIDATE_URL)) {
+            throw new \InvalidArgumentException(
+                'config must have a valid endpoint url'
+            );
+        }
         return $this->endpoint;
     }
 }
