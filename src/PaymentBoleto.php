@@ -48,19 +48,19 @@ class PaymentBoleto extends BasePayment implements Payment
     {
         $response = $client->request('POST', $this->config->getEndpoint(), [
             'headers' => [
-                'Accept' => 'application/json',
+                'Accept'       => 'application/json',
                 'Content-Type' => 'application/json'
             ],
-            'auth' => [
-                'username' => $this->config->getUsername(),
-                'password' => $this->config->getPassword(),
+            'auth'    => [
+                '0' => $this->config->getUsername(),
+                '1' => $this->config->getPassword(),
             ],
-            'body' => json_encode([
+            'body'    => json_encode([
                 'codigoEstabelecimento' => $this->config->getStoreCode(),
-                'codigoFormaPagamento' => $this->methodCode,
-                'transacao' => $this->transaction,
-                'itensDoPedido' => $this->items,
-                'dadosCobranca' => $this->billing
+                'codigoFormaPagamento'  => $this->methodCode,
+                'transacao'             => $this->transaction,
+                'itensDoPedido'         => $this->items,
+                'dadosCobranca'         => $this->billing
             ])
         ]);
 
