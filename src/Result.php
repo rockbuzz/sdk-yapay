@@ -33,8 +33,8 @@ class Result
         );
     }
 
-    protected function isSuccess(): bool
+    public function isSuccess(): bool
     {
-        return ! array_key_exists('erro', json_decode($this->json));
+        return !array_key_exists('erro', json_decode($this->json));
     }
 }
