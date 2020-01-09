@@ -24,7 +24,7 @@ class PaymentCreditCard extends BasePayment implements Payment
     protected $creditCard;
 
     public function __construct(
-        Config $config, 
+        Config $config,
         int $methodCode,
         TransactionCreditCard $transaction,
         CreditCard $creditCard,
@@ -40,13 +40,11 @@ class PaymentCreditCard extends BasePayment implements Payment
     public function done(ClientInterface $client = null): Result
     {
         try {
-
             return new Result($this->getContents($client ?? new Client()));
-            
         } catch (\Exception $exception) {
             throw new Paymentexception(
-                $exception->getMessage(), 
-                $exception->getCode(), 
+                $exception->getMessage(),
+                $exception->getCode(),
                 $exception
             );
         }
@@ -60,8 +58,8 @@ class PaymentCreditCard extends BasePayment implements Payment
                 'Content-Type' => 'application/json'
             ],
             'auth' => [
-                'username' => $this->config->getUsername(),
-                'password' => $this->config->getPassword(),
+                $this->config->getUsername(),
+                $this->config->getPassword(),
             ],
             'body' => json_encode([
                 'codigoEstabelecimento' => $this->storeCode,

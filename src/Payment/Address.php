@@ -53,7 +53,7 @@ class Address
         string $neighborhood,
         string $city,
         string $state,
-        string $complement = '',
+        string $complement = null,
         string $country = self::DEFAULT_COUNTRY
     )
     {
