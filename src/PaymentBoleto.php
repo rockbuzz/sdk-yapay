@@ -32,9 +32,7 @@ class PaymentBoleto extends BasePayment implements Payment
     public function done(ClientInterface $client = null): Result
     {
         try {
-
             return new Result($this->getContents($client ?? new Client()));
-            
         } catch (\Exception $exception) {
             throw new Paymentexception(
                 $exception->getMessage(), 

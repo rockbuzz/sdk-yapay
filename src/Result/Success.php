@@ -4,8 +4,8 @@ namespace Rockbuzz\SDKYapay\Result;
 
 class Success implements \JsonSerializable
 {
-    const METHOD_BOLETO = 29;
-    const METHOD_CREDITCARD = 170;
+    const METHODS_BOLETO = [17, 29];
+    const METHODS_CREDITCARD = [170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180];
     /**
      * @var string
      */
@@ -18,15 +18,15 @@ class Success implements \JsonSerializable
 
     public function isBoleto(): bool
     {
-        return $this->json->codigoFormaPagamento == self::METHOD_BOLETO;
+        return in_array($this->json->codigoFormaPagamento, self::METHODS_BOLETO);
     }
 
     public function isCredidCard(): bool
     {
-        return $this->json->codigoFormaPagamento == self::METHOD_CREDITCARD;
+        return in_array($this->json->codigoFormaPagamento, self::METHODS_CREDITCARD);
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         $data = [
             'numeroTransacao' => $this->json->numeroTransacao,
