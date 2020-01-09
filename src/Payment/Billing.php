@@ -21,8 +21,8 @@ class Billing implements \JsonSerializable
         $data = [
             'codigoCliente' => $this->customer->getId(),
             'nome' => $this->customer->getName(),
-            'document' => $this->customer->getDocument(),
-            'email' => $this->customer->getEmail()            
+            'documento' => $this->customer->getDocument(),
+            'email' => $this->customer->getEmail()
         ];
 
         if ($this->customer->hasAddress()) {
