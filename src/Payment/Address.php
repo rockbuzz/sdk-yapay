@@ -12,7 +12,7 @@ class Address
     private $street;
 
     /**
-     * @var int
+     * @var string
      */
     private $number;
 
@@ -47,13 +47,13 @@ class Address
     private $country;
 
     public function __construct(
-        string $street, 
-        int $number, 
-        string $complement, 
+        string $street,
+        string $number,
         string $postalCode,
         string $neighborhood,
         string $city,
         string $state,
+        string $complement = '',
         string $country = self::DEFAULT_COUNTRY
     )
     {
@@ -65,7 +65,7 @@ class Address
         $this->city = $city;
         $this->state = $state;
         $this->country = $country;
-    }    
+    }
 
     public function getStreet()
     {
@@ -86,7 +86,7 @@ class Address
     {
         return $this->postalCode;
     }
- 
+
     public function getNeighborhood()
     {
         return $this->neighborhood;
@@ -104,7 +104,7 @@ class Address
         }
         return strtoupper($this->state);
     }
- 
+
     public function getCountry()
     {
         if (strlen($this->country) != 2) {
