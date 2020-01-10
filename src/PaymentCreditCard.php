@@ -62,7 +62,7 @@ class PaymentCreditCard extends BasePayment implements Payment
                 $this->config->getPassword(),
             ],
             'body' => json_encode([
-                'codigoEstabelecimento' => $this->storeCode,
+                'codigoEstabelecimento' => $this->config->getStoreCode(),
                 'codigoFormaPagamento' => $this->methodCode,
                 'transacao' => $this->transaction,
                 'dadosDoCartao' => $this->creditCard,
