@@ -9,13 +9,13 @@ class AddressTest extends TestCase
 {
     /**
      * @test
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage state must be two characters
      */
     public function anAddressMustHaveATwoCharacterState()
     {
-        $address = new Address('street', 123, '', '12345678', 'neigh', 'city', 'STR');
+        $address = new Address('street', 123, '12345678', 'neigh', 'city', 'STR');
 
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('state must be two characters');
         $address->getState();
     }
 
@@ -24,19 +24,20 @@ class AddressTest extends TestCase
      */
     public function anAddressMustHaveAStateWithCapitalLetters()
     {
-        $address = new Address('street', 123, '', '12345678', 'neigh', 'city', 'st');
+        $address = new Address('street', 123, '12345678', 'neigh', 'city', 'st');
 
         $this->assertEquals('ST', $address->getState());
     }
 
     /**
      * @test
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage country must be two characters
      */
     public function anAddressMustHaveATwoCharacterCountry()
     {
-        $address = new Address('street', 123, '', '12345678', 'neigh', 'city', 'ST', 'CTR');
+        $address = new Address('street', 123, '12345678', 'neigh', 'city','ST', null, 'CTR');
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('country must be two characters');
 
         $address->getCountry();
     }
@@ -46,7 +47,7 @@ class AddressTest extends TestCase
      */
     public function anAddressMustHaveACountryWithCapitalLetters()
     {
-        $address = new Address('street', 123, '', '12345678', 'neigh', 'city', 'st', 'ct');
+        $address = new Address('street', 123, '12345678', 'neigh', 'city', 'st', null, 'ct');
 
         $this->assertEquals('CT', $address->getCountry());
     }
