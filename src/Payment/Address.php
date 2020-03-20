@@ -83,9 +83,9 @@ class Address
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getComplement(): string
+    public function getComplement(): ?string
     {
         return $this->complement;
     }
