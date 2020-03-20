@@ -5,6 +5,7 @@ namespace Rockbuzz\SDKYapay;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use Rockbuzz\SDKYapay\Contract\Payments;
+use GuzzleHttp\Exception\GuzzleException;
 use Rockbuzz\SDKYapay\Exception\PaymentException;
 
 class Transactions implements Payments
@@ -26,6 +27,9 @@ class Transactions implements Payments
         $this->numberTransaction = $numberTransaction;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function findByStoreCodeAndPaymentCode(ClientInterface $client = null): Result
     {
         try {
@@ -39,7 +43,12 @@ class Transactions implements Payments
         }
     }
 
-    private function getContents(ClientInterface $client)
+    /**
+     * @param ClientInterface $client
+     * @return string
+     * @throws GuzzleException
+     */
+    private function getContents(ClientInterface $client): string
     {
         $response = $client->request('POST', $this->config->getEndpoint(), [
             'headers' => [

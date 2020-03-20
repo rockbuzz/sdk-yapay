@@ -2,7 +2,9 @@
 
 namespace Rockbuzz\SDKYapay\Result;
 
-class Fail implements \JsonSerializable
+use JsonSerializable;
+
+class Fail implements JsonSerializable
 {
     /**
      * @var string
@@ -25,19 +27,21 @@ class Fail implements \JsonSerializable
     protected $storeCode;
 
     public function __construct(
-        string $errorCode, 
-        string $errorMessage, 
+        string $errorCode,
+        string $errorMessage,
         int $transactionStatus,
         string $storeCode
-    )
-    {
+    ) {
         $this->errorCode = $errorCode;
         $this->errorMessage = $errorMessage;
         $this->transactionStatus = $transactionStatus;
         $this->storeCode = $storeCode;
     }
 
-    public function jsonSerialize()
+    /**
+     * @return array
+     */
+    public function jsonSerialize(): array
     {
         return [
             'erro' => [

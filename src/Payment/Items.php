@@ -2,9 +2,9 @@
 
 namespace Rockbuzz\SDKYapay\Payment;
 
-use Rockbuzz\SDKYapay\Payment\Item;
+use JsonSerializable;
 
-class Items implements \JsonSerializable
+class Items implements JsonSerializable
 {
     /**
      * @var array
@@ -18,15 +18,21 @@ class Items implements \JsonSerializable
     {
         array_walk($items, function (Item $item) {
             $this->add($item);
-        });       
+        });
     }
- 
+
+    /**
+     * @param Item $item
+     */
     protected function add(Item $item): void
     {
         array_push($this->data, $item);
     }
 
-    public function jsonSerialize()
+    /**
+     * @return array
+     */
+    public function jsonSerialize(): array
     {
         return array_map(function (Item $item) {
             return [

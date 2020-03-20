@@ -2,7 +2,9 @@
 
 namespace Rockbuzz\SDKYapay\Exception;
 
-class PaymentException extends \Exception
+use Exception as ExceptionAlias;
+
+class PaymentException extends ExceptionAlias
 {
-    
+
 }

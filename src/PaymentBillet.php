@@ -7,6 +7,7 @@ use GuzzleHttp\ClientInterface;
 use Rockbuzz\SDKYapay\Payment\Items;
 use Rockbuzz\SDKYapay\Payment\Billing;
 use Rockbuzz\SDKYapay\Contract\Payment;
+use GuzzleHttp\Exception\GuzzleException;
 use Rockbuzz\SDKYapay\Payment\TransactionBillet;
 use Rockbuzz\SDKYapay\Exception\PaymentException;
 
@@ -18,30 +19,37 @@ class PaymentBillet extends BasePayment implements Payment
     protected $transaction;
 
     public function __construct(
-        Config $config, 
+        Config $config,
         int $methodCode,
         TransactionBillet $transaction,
         Items $items,
         Billing $billing
-    )
-    {
+    ) {
         parent::__construct($config, $methodCode, $items, $billing);
         $this->transaction = $transaction;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function done(ClientInterface $client = null): Result
     {
         try {
             return new Result($this->getContents($client ?? new Client()));
         } catch (\Exception $exception) {
             throw new Paymentexception(
-                $exception->getMessage(), 
-                $exception->getCode(), 
+                $exception->getMessage(),
+                $exception->getCode(),
                 $exception
             );
-        }        
+        }
     }
 
+    /**
+     * @param ClientInterface $client
+     * @return string
+     * @throws GuzzleException
+     */
     private function getContents(ClientInterface $client)
     {
         $response = $client->request('POST', $this->config->getEndpoint(), [

@@ -55,8 +55,7 @@ class Address
         string $state,
         string $complement = null,
         string $country = self::DEFAULT_COUNTRY
-    )
-    {
+    ) {
         $this->street = $street;
         $this->number = $number;
         $this->complement = $complement;
@@ -67,37 +66,58 @@ class Address
         $this->country = $country;
     }
 
-    public function getStreet()
+    /**
+     * @return string
+     */
+    public function getStreet(): string
     {
         return $this->street;
     }
 
-    public function getNumber()
+    /**
+     * @return string
+     */
+    public function getNumber(): string
     {
         return $this->number;
     }
 
-    public function getComplement()
+    /**
+     * @return string
+     */
+    public function getComplement(): string
     {
         return $this->complement;
     }
 
-    public function getPostalCode()
+    /**
+     * @return string
+     */
+    public function getPostalCode(): string
     {
         return $this->postalCode;
     }
 
-    public function getNeighborhood()
+    /**
+     * @return string
+     */
+    public function getNeighborhood(): string
     {
         return $this->neighborhood;
     }
 
-    public function getCity()
+    /**
+     * @return string
+     */
+    public function getCity(): string
     {
         return $this->city;
     }
 
-    public function getState()
+    /**
+     * @return string
+     */
+    public function getState(): string
     {
         if (strlen($this->state) != 2) {
             throw new \InvalidArgumentException('state must be two characters');
@@ -105,7 +125,10 @@ class Address
         return strtoupper($this->state);
     }
 
-    public function getCountry()
+    /**
+     * @return string
+     */
+    public function getCountry(): string
     {
         if (strlen($this->country) != 2) {
             throw new \InvalidArgumentException('country must be two characters');

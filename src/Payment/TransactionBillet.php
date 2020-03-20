@@ -2,25 +2,30 @@
 
 namespace Rockbuzz\SDKYapay\Payment;
 
-class TransactionBillet extends BaseTransaction implements \JsonSerializable
+use Datetime;
+use JsonSerializable;
+
+class TransactionBillet extends BaseTransaction implements JsonSerializable
 {
     /**
-     * @var \Datetime
+     * @var Datetime
      */
     private $dueDate;
 
     public function __construct(
-        int $number, 
-        int $value, 
-        \Datetime $dueDate, 
+        int $number,
+        int $value,
+        Datetime $dueDate,
         string $notificationUrl
-    )
-    {
-        parent::__construct($number, $value, $notificationUrl);   
-        $this->dueDate = $dueDate;      
+    ) {
+        parent::__construct($number, $value, $notificationUrl);
+        $this->dueDate = $dueDate;
     }
 
-    public function jsonSerialize()
+    /**
+     * @return array
+     */
+    public function jsonSerialize(): array
     {
         return [
             'numeroTransacao' => $this->number,

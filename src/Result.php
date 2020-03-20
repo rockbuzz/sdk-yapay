@@ -17,6 +17,9 @@ class Result
         $this->json = $json;
     }
 
+    /**
+     * @return Fail|Success
+     */
     public function about()
     {
         if ($this->isSuccess()) {
@@ -33,6 +36,9 @@ class Result
         );
     }
 
+    /**
+     * @return bool
+     */
     public function isSuccess(): bool
     {
         return !array_key_exists('erro', json_decode($this->json));

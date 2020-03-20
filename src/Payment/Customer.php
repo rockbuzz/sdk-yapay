@@ -2,8 +2,7 @@
 
 namespace Rockbuzz\SDKYapay\Payment;
 
-use Rockbuzz\SDKYapay\Payment\Email;
-use Rockbuzz\SDKYapay\Payment\Address;
+use InvalidArgumentException;
 
 class Customer
 {
@@ -15,7 +14,7 @@ class Customer
     /**
      * @var string
      */
-    private $name;    
+    private $name;
 
     /**
      * @var string
@@ -33,89 +32,127 @@ class Customer
     private $address;
 
     public function __construct(
-        int $id, 
-        string $name, 
-        string $document, 
+        int $id,
+        string $name,
+        string $document,
         Email $email,
         Address $address = null
-    )
-    {
+    ) {
         $this->id = $id;
-        $this->name = $name;        
+        $this->name = $name;
         $this->document = $document;
         $this->email = $email;
         $this->address = $address;
     }
 
+    /**
+     * @return bool
+     */
     public function hasAddress(): bool
     {
-        return !! $this->address;
+        return !!$this->address;
     }
 
-    public function setAddress(Address $address)
+    /**
+     * @param Address $address
+     */
+    public function setAddress(Address $address): void
     {
         $this->address = $address;
     }
 
-    public function getId()
+    /**
+     * @return int
+     */
+    public function getId(): int
     {
         return $this->id;
     }
- 
+
+    /**
+     * @return string
+     */
     public function getName(): string
     {
         return $this->name;
     }
 
+    /**
+     * @return string
+     */
     public function getDocument(): string
     {
         return $this->document;
     }
 
     /**
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function getEmail(): string
     {
         return $this->email->getValue();
     }
 
-    public function getAddressStreet()
+    /**
+     * @return string|null
+     */
+    public function getAddressStreet(): ?string
     {
         return $this->address->getStreet() ?? null;
     }
 
-    public function getAddressNumber()
+    /**
+     * @return string|null
+     */
+    public function getAddressNumber(): ?string
     {
         return $this->address->getNumber() ?? null;
     }
 
-    public function getAddressComplement()
+    /**
+     * @return string|null
+     */
+    public function getAddressComplement(): ?string
     {
         return $this->address->getComplement() ?? null;
     }
 
-    public function getAddressPostalCode()
+    /**
+     * @return string|null
+     */
+    public function getAddressPostalCode(): ?string
     {
         return $this->address->getPostalCode() ?? null;
     }
 
-    public function getAddressNeighborhood()
+    /**
+     * @return string|null
+     */
+    public function getAddressNeighborhood(): ?string
     {
         return $this->address->getNeighborhood() ?? null;
     }
 
-    public function getAddressCity()
+    /**
+     * @return string|null
+     */
+    public function getAddressCity(): ?string
     {
         return $this->address->getCity() ?? null;
     }
 
-    public function getAddressState()
+    /**
+     * @return string|null
+     */
+    public function getAddressState(): ?string
     {
         return $this->address->getState() ?? null;
     }
 
-    public function getAddressCountry()
+    /**
+     * @return string|null
+     */
+    public function getAddressCountry(): ?string
     {
         return $this->address->getCountry() ?? null;
     }

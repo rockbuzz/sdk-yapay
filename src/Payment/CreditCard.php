@@ -2,7 +2,9 @@
 
 namespace Rockbuzz\SDKYapay\Payment;
 
-class CreditCard implements \JsonSerializable
+use JsonSerializable;
+
+class CreditCard implements JsonSerializable
 {
     /**
      * @var string
@@ -30,21 +32,23 @@ class CreditCard implements \JsonSerializable
     private $expirationYear;
 
     public function __construct(
-        string $holderName, 
-        int $number, 
-        int $securityCode, 
+        string $holderName,
+        int $number,
+        int $securityCode,
         int $expirationMonth,
         int $expirationYear
-    )
-    {
+    ) {
         $this->holderName = $holderName;
         $this->number = $number;
         $this->securityCode = $securityCode;
         $this->expirationMonth = $expirationMonth;
         $this->expirationYear = $expirationYear;
-    }    
+    }
 
-    public function jsonSerialize()
+    /**
+     * @return array
+     */
+    public function jsonSerialize(): array
     {
         return [
             'nomePortador' => $this->holderName,

@@ -312,7 +312,7 @@ class SuccessTest extends TestCase
     /**
      * @test
      */
-    public function aFailMustHaveToJasonCreditCard()
+    public function aSuccessMustHaveToJsonCreditCard()
     {
         $data = [
             'numeroTransacao' => 123,
@@ -342,7 +342,7 @@ class SuccessTest extends TestCase
     /**
      * @test
      */
-    public function aFailMustHaveToJasonBillet()
+    public function aSuccessMustHaveToJsonBillet()
     {
         $data = [
             'numeroTransacao' => 123,
@@ -362,5 +362,19 @@ class SuccessTest extends TestCase
         $json = json_encode($data);
 
         $this->assertEquals($json, json_encode($success));
+    }
+
+    /**
+     * @test
+     */
+    public function aSuccessHaveGetTransactionNumber()
+    {
+        $data = [
+            'numeroTransacao' => 123,
+        ];
+
+        $success = new Success(json_encode($data));
+
+        $this->assertEquals(123, $success->getTransactionNumber());
     }
 }

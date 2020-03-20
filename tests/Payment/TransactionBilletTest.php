@@ -5,7 +5,7 @@ namespace Tests\Payment;
 use PHPUnit\Framework\TestCase;
 use Rockbuzz\SDKYapay\Payment\TransactionBillet;
 
-class TransactionBoletoTest extends TestCase
+class TransactionBilletTest extends TestCase
 {
     /**
      * @test

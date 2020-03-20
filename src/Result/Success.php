@@ -2,7 +2,9 @@
 
 namespace Rockbuzz\SDKYapay\Result;
 
-class Success implements \JsonSerializable
+use JsonSerializable;
+
+class Success implements JsonSerializable
 {
     const METHODS_BILLET = [17, 29];
     const METHODS_CREDIT_CARD = [170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180];
@@ -22,41 +24,73 @@ class Success implements \JsonSerializable
         $this->json = json_decode($json);
     }
 
+    /**
+     * @return bool
+     */
     public function isBillet(): bool
     {
         return in_array($this->json->codigoFormaPagamento, self::METHODS_BILLET);
     }
 
+    /**
+     * @return bool
+     */
     public function isCreditCard(): bool
     {
         return in_array($this->json->codigoFormaPagamento, self::METHODS_CREDIT_CARD);
     }
 
-    public function isPaid()
+    /**
+     * @return bool
+     */
+    public function isPaid(): bool
     {
         return in_array($this->json->statusTransacao, self::TRANSACTION_STATUS_PAID);
     }
 
-    public function isWaiting()
+    /**
+     * @return bool
+     */
+    public function isWaiting(): bool
     {
         return in_array($this->json->statusTransacao, self::TRANSACTION_STATUS_WAITING);
     }
 
-    public function isRejected()
+    /**
+     * @return bool
+     */
+    public function isRejected(): bool
     {
         return in_array($this->json->statusTransacao, self::TRANSACTION_STATUS_REJECTED);
     }
 
-    public function isBilletPaidLower()
+    /**
+     * @return bool
+     */
+    public function isBilletPaidLower(): bool
     {
         return $this->json->statusTransacao == self::TRANSACTION_STATUS_BILLET_LOWER;
     }
 
-    public function isBilletPaidUpper()
+    /**
+     * @return bool
+     */
+    public function isBilletPaidUpper(): bool
     {
         return $this->json->statusTransacao == self::TRANSACTION_STATUS_BILLET_UPPER;
     }
 
+    /**
+     * @return int
+     */
+    public function getTransactionNumber(): int
+    {
+        return $this->json->numeroTransacao;
+    }
+
+    /**
+     * @return array
+     */
     public function jsonSerialize(): array
     {
         $data = [

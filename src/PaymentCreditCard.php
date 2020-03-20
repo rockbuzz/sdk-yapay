@@ -4,10 +4,11 @@ namespace Rockbuzz\SDKYapay;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
-use Rockbuzz\SDKYapay\Payment\CreditCard;
 use Rockbuzz\SDKYapay\Payment\Items;
 use Rockbuzz\SDKYapay\Payment\Billing;
 use Rockbuzz\SDKYapay\Contract\Payment;
+use GuzzleHttp\Exception\GuzzleException;
+use Rockbuzz\SDKYapay\Payment\CreditCard;
 use Rockbuzz\SDKYapay\Exception\PaymentException;
 use Rockbuzz\SDKYapay\Payment\TransactionCreditCard;
 
@@ -37,6 +38,9 @@ class PaymentCreditCard extends BasePayment implements Payment
         $this->creditCard = $creditCard;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function done(ClientInterface $client = null): Result
     {
         try {
@@ -50,6 +54,11 @@ class PaymentCreditCard extends BasePayment implements Payment
         }
     }
 
+    /**
+     * @param ClientInterface $client
+     * @return string
+     * @throws GuzzleException
+     */
     private function getContents(ClientInterface $client)
     {
         $response = $client->request('POST', $this->config->getEndpoint(), [

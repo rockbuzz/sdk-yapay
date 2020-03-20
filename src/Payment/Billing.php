@@ -2,7 +2,9 @@
 
 namespace Rockbuzz\SDKYapay\Payment;
 
-class Billing implements \JsonSerializable
+use JsonSerializable;
+
+class Billing implements JsonSerializable
 {
     /**
      * @var Customer
@@ -14,7 +16,10 @@ class Billing implements \JsonSerializable
         $this->customer = $customer;
     }
 
-    public function jsonSerialize()
+    /**
+     * @return array
+     */
+    public function jsonSerialize(): array
     {
         $data = [
             'codigoCliente' => $this->customer->getId(),
