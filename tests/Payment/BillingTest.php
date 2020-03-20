@@ -17,18 +17,18 @@ class BillingTest extends TestCase
     {
         $billing = new Billing(
                 new Customer(123, 'Customer Name', '123456789', new Email('example@email.com'),
-                new Address('street', 1234, '', '123456-789', 'center', 'City', 'ST')
+                new Address('street', 1234, '123456-789', 'center', 'City', 'ST', '')
             )
         );
 
         $json = json_encode([
             'codigoCliente' => 123,
             'nome' => 'Customer Name',
-            'document' => '123456789',
+            'documento' => '123456789',
             'email' => 'example@email.com',
             'endereco' => [
                 'logradouro' => 'street',
-                'numero' => 1234,
+                'numero' => '1234',
                 'complemento' => '',
                 'cep' => '123456-789',
                 'bairro' => 'center',

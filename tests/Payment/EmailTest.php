@@ -9,12 +9,13 @@ class EmailTest extends TestCase
 {
     /**
      * @test
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage email must have a valid format
      */
     public function anEmailMustHaveAValidFormat()
     {
         $email = new Email('no-email');
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('email must have a valid format');
 
         $email->getValue();
     }

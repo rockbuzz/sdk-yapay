@@ -2,8 +2,6 @@
 
 namespace Rockbuzz\SDKYapay\Payment;
 
-use Rockbuzz\SDKYapay\Payment\Customer;
-
 class Billing implements \JsonSerializable
 {
     /**
