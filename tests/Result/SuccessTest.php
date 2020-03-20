@@ -377,4 +377,18 @@ class SuccessTest extends TestCase
 
         $this->assertEquals(123, $success->getTransactionNumber());
     }
+
+    /**
+     * @test
+     */
+    public function aSuccessHaveGetBilletUrl()
+    {
+        $data = [
+            'urlPagamento' => 'http://www.pagamento.com.br',
+        ];
+
+        $success = new Success(json_encode($data));
+
+        $this->assertEquals('http://www.pagamento.com.br', $success->getBilletUrl());
+    }
 }

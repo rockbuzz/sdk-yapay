@@ -89,6 +89,14 @@ class Success implements JsonSerializable
     }
 
     /**
+     * @return string|null
+     */
+    public function getBilletUrl(): ?string
+    {
+        return $this->json->urlPagamento ?? null;
+    }
+
+    /**
      * @return array
      */
     public function jsonSerialize(): array
