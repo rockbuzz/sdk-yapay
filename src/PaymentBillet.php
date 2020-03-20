@@ -7,20 +7,20 @@ use GuzzleHttp\ClientInterface;
 use Rockbuzz\SDKYapay\Payment\Items;
 use Rockbuzz\SDKYapay\Payment\Billing;
 use Rockbuzz\SDKYapay\Contract\Payment;
-use Rockbuzz\SDKYapay\Payment\TransactionBoleto;
+use Rockbuzz\SDKYapay\Payment\TransactionBillet;
 use Rockbuzz\SDKYapay\Exception\PaymentException;
 
-class PaymentBoleto extends BasePayment implements Payment
+class PaymentBillet extends BasePayment implements Payment
 {
     /**
-     * @var TransactionBoleto
+     * @var TransactionBillet
      */
     protected $transaction;
 
     public function __construct(
         Config $config, 
         int $methodCode,
-        TransactionBoleto $transaction,
+        TransactionBillet $transaction,
         Items $items,
         Billing $billing
     )

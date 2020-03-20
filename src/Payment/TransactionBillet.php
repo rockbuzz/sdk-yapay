@@ -2,7 +2,7 @@
 
 namespace Rockbuzz\SDKYapay\Payment;
 
-class TransactionBoleto extends BaseTransaction implements \JsonSerializable
+class TransactionBillet extends BaseTransaction implements \JsonSerializable
 {
     /**
      * @var \Datetime

@@ -24,16 +24,16 @@ use Rockbuzz\SDKYapay\Config;
 use Rockbuzz\SDKYapay\Payment\Item;
 use Rockbuzz\SDKYapay\Payment\Items;
 use Rockbuzz\SDKYapay\Payment\Email;
-use Rockbuzz\SDKYapay\PaymentBoleto;
+use Rockbuzz\SDKYapay\PaymentBillet;
 use Rockbuzz\SDKYapay\Payment\Billing;
 use Rockbuzz\SDKYapay\Payment\Address;
 use Rockbuzz\SDKYapay\Payment\Customer;
-use Rockbuzz\SDKYapay\Payment\TransactionBoleto;
+use Rockbuzz\SDKYapay\Payment\TransactionBillet;
 
 
 require __DIR__ . '/vendor/autoload.php';
 
-$payment = new PaymentBoleto(
+$payment = new PaymentBillet(
     new Config(
         1234, 
         'username', 
@@ -41,7 +41,7 @@ $payment = new PaymentBoleto(
         'https://sandbox.gateway.yapay.com.br/checkout/api/v3/transacao'
     ), 
     1, 
-    new TransactionBoleto(123, 1598, new \Datetime(), 'http://notificationUrl.com'), 
+    new TransactionBillet(123, 1598, new \Datetime(), 'http://notificationUrl.com'), 
     new Items([
         new Item('1234', 'Product Name', 15987),
         new Item('1235', 'Product Name', 13980),

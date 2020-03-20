@@ -4,8 +4,14 @@ namespace Rockbuzz\SDKYapay\Result;
 
 class Success implements \JsonSerializable
 {
-    const METHODS_BOLETO = [17, 29];
-    const METHODS_CREDITCARD = [170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180];
+    const METHODS_BILLET = [17, 29];
+    const METHODS_CREDIT_CARD = [170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180];
+    const TRANSACTION_STATUS_PAID = [1, 21, 22];
+    const TRANSACTION_STATUS_WAITING = [2, 5, 8, 15];
+    const TRANSACTION_STATUS_REJECTED = [3, 9, 13, 14, 17, 18, 50];
+    const TRANSACTION_STATUS_BILLET_LOWER = 21;
+    const TRANSACTION_STATUS_BILLET_UPPER = 22;
+
     /**
      * @var string
      */
@@ -16,14 +22,39 @@ class Success implements \JsonSerializable
         $this->json = json_decode($json);
     }
 
-    public function isBoleto(): bool
+    public function isBillet(): bool
     {
-        return in_array($this->json->codigoFormaPagamento, self::METHODS_BOLETO);
+        return in_array($this->json->codigoFormaPagamento, self::METHODS_BILLET);
     }
 
-    public function isCredidCard(): bool
+    public function isCreditCard(): bool
     {
-        return in_array($this->json->codigoFormaPagamento, self::METHODS_CREDITCARD);
+        return in_array($this->json->codigoFormaPagamento, self::METHODS_CREDIT_CARD);
+    }
+
+    public function isPaid()
+    {
+        return in_array($this->json->statusTransacao, self::TRANSACTION_STATUS_PAID);
+    }
+
+    public function isWaiting()
+    {
+        return in_array($this->json->statusTransacao, self::TRANSACTION_STATUS_WAITING);
+    }
+
+    public function isRejected()
+    {
+        return in_array($this->json->statusTransacao, self::TRANSACTION_STATUS_REJECTED);
+    }
+
+    public function isBilletPaidLower()
+    {
+        return $this->json->statusTransacao == self::TRANSACTION_STATUS_BILLET_LOWER;
+    }
+
+    public function isBilletPaidUpper()
+    {
+        return $this->json->statusTransacao == self::TRANSACTION_STATUS_BILLET_UPPER;
     }
 
     public function jsonSerialize(): array
@@ -41,7 +72,7 @@ class Success implements \JsonSerializable
             'urlPagamento' => $this->json->urlPagamento
         ];
 
-        if ($this->isCredidCard()) {
+        if ($this->isCreditCard()) {
             $data = array_merge($data, [
                 'nsu' => $this->json->nsu,
                 'mensagemVenda' => $this->json->mensagemVenda,

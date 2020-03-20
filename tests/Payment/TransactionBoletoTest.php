@@ -3,7 +3,7 @@
 namespace Tests\Payment;
 
 use PHPUnit\Framework\TestCase;
-use Rockbuzz\SDKYapay\Payment\TransactionBoleto;
+use Rockbuzz\SDKYapay\Payment\TransactionBillet;
 
 class TransactionBoletoTest extends TestCase
 {
@@ -13,7 +13,7 @@ class TransactionBoletoTest extends TestCase
     public function aTransactionBoletoMustHaveToJason()
     {
         $dueDate = new \Datetime();
-        $transactionBoleto = new TransactionBoleto(
+        $transactionBoleto = new TransactionBillet(
             123, 1598, $dueDate, 'http://notification-url.com'
         );
 
