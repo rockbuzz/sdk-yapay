@@ -50,7 +50,7 @@ class Transactions implements Payments
      */
     private function getContents(ClientInterface $client): string
     {
-        $response = $client->request('POST', $this->config->getEndpoint(), [
+        $response = $client->request('GET', $this->config->getEndpoint(), [
             'headers' => [
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json'
@@ -58,11 +58,7 @@ class Transactions implements Payments
             'auth' => [
                 $this->config->getUsername(),
                 $this->config->getPassword(),
-            ],
-            'body' => json_encode([
-                'codigoEstabelecimento' => $this->config->getStoreCode(),
-                'numeroTransacao' => $this->numberTransaction,
-            ])
+            ]
         ]);
 
         return $response->getBody()->getContents();

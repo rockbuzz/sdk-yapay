@@ -4,6 +4,7 @@ namespace Rockbuzz\SDKYapay;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
+use Rockbuzz\SDKYapay\Payment\ExtraFields;
 use Rockbuzz\SDKYapay\Payment\Items;
 use Rockbuzz\SDKYapay\Payment\Billing;
 use Rockbuzz\SDKYapay\Contract\Payment;
@@ -17,16 +18,22 @@ class PaymentBillet extends BasePayment implements Payment
      * @var TransactionBillet
      */
     protected $transaction;
+    /**
+     * @var ExtraFields
+     */
+    private $extraFields;
 
     public function __construct(
         Config $config,
         int $methodCode,
         TransactionBillet $transaction,
         Items $items,
-        Billing $billing
+        Billing $billing,
+        ExtraFields $extraFields = null
     ) {
         parent::__construct($config, $methodCode, $items, $billing);
         $this->transaction = $transaction;
+        $this->extraFields = $extraFields;
     }
 
     /**
@@ -66,7 +73,8 @@ class PaymentBillet extends BasePayment implements Payment
                 'codigoFormaPagamento' => $this->methodCode,
                 'transacao' => $this->transaction,
                 'itensDoPedido' => $this->items,
-                'dadosCobranca' => $this->billing
+                'dadosCobranca' => $this->billing,
+                'camposExtras' => $this->extraFields
             ])
         ]);
 
