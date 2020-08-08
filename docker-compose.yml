@@ -1,0 +1,10 @@
+version: '2'
+services:
+  app:
+    container_name: sdk-yapay
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    volumes:
+      - ./:/var/www
