@@ -6,7 +6,7 @@ Layer to abstract communication with Yapay Payment API.
 
 ## Requirements
 
-PHP: >=7.0
+PHP >=7.1
 
 ## Install
 
@@ -20,42 +20,56 @@ $ composer require rockbuzz/sdk-yapay
 ```php
 <?php
 
-use Rockbuzz\SDKYapay\Config;
-use Rockbuzz\SDKYapay\Payment\Item;
-use Rockbuzz\SDKYapay\Payment\Items;
-use Rockbuzz\SDKYapay\Payment\Email;
-use Rockbuzz\SDKYapay\PaymentBillet;
-use Rockbuzz\SDKYapay\Payment\Billing;
-use Rockbuzz\SDKYapay\Payment\Address;
-use Rockbuzz\SDKYapay\Payment\Customer;
-use Rockbuzz\SDKYapay\Payment\TransactionBillet;
-
+use Rockbuzz\SDKYapay\PaymentBilletFactory;
 
 require __DIR__ . '/vendor/autoload.php';
 
-$payment = new PaymentBillet(
-    new Config(
-        1234, 
-        'username', 
-        'password', 
-        'https://sandbox.gateway.yapay.com.br/checkout/api/v3/transacao'
-    ), 
-    1, 
-    new TransactionBillet(123, 1598, new \Datetime(), 'http://notificationUrl.com'), 
-    new Items([
-        new Item('1234', 'Product Name', 15987),
-        new Item('1235', 'Product Name', 13980),
-    ]), 
-    new Billing(new Customer(
-            12, 
-            'Customer Name', 
-            '123456789', 
-            new Email('email@email.com'), 
-            new Address('Street', 123, '', '96085150', 'Center', 'City', 'ST')
-        )
-    )
-);
+$params = [
+    'config' => [
+        'store_code' => 1234,
+        'username' => 'your_user',
+        'username' => 'your_pass',
+        'endpoint' => 'https://sandbox.gateway.yapay.com.br/checkout/api/v3/transacao'
+    ],
+    'transaction' => [
+        'number' => 1234,
+        'value' => 1598,
+        'due_date' => new \Datetime(),
+        'notification_url' => 'http://notificationUrl.com')
+    ],
+    'items' => [
+        [
+            'product_id' => 1234,
+            'product_name' => 'Product Name',
+            'price_in_cents' => 15987
+            'quantity' => 1
+        ],
+        [
+            'product_id' => 2345,
+            'product_name' => 'Product Name',
+            'price_in_cents' => 15990
+            'quantity' => 1
+        ]
+    ],
+    'customer' => [
+        'id' => 1234,
+        'name' => 'Customer Name',
+        'document' => 12345678900,
+        'email' => 'customer@gmail.com',
+        'address' => [
+            'street' => 'Street',
+            'number' => 123,
+            'postal_code' => '16985152',
+            'neighborhood' => 'Center',
+            'city' => 'City',
+            'state' => 'UF',
+            'complement' => '',
+            'country' => 'BR'
+        ]
+    ]
+];
 
+$payment = new PaymentBilletFactory::fromArray($params);
 $result = $payment->done();
 ```
 
