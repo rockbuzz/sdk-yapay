@@ -33,8 +33,8 @@ class CreditCard implements JsonSerializable
 
     public function __construct(
         string $holderName,
-        int $number,
-        int $securityCode,
+        $number,
+        $securityCode,
         int $expirationMonth,
         int $expirationYear
     ) {
