@@ -22,21 +22,15 @@ $ composer require rockbuzz/sdk-yapay
 
 use Rockbuzz\SDKYapay\PaymentBilletFactory;
 
-require __DIR__ . '/vendor/autoload.php';
-
 $params = [
-    'config' => [
-        'store_code' => 1234,
-        'username' => 'your_user',
-        'username' => 'your_pass',
-        'endpoint' => 'https://sandbox.gateway.yapay.com.br/checkout/api/v3/transacao'
-    ],
-    'transaction' => [
-        'number' => 1234,
-        'value' => 1598,
-        'due_date' => new \Datetime(),
-        'notification_url' => 'http://notificationUrl.com')
-    ],
+    'store_code' => 1234,
+    'username' => 'your_user',
+    'username' => 'your_pass',
+    'endpoint' => 'https://sandbox.gateway.yapay.com.br/checkout/api/v3/transacao',
+    'transaction_number' => 1234,
+    'transaction_value' => 1598,
+    'transaction_due_date' => new \Datetime(),
+    'transaction_notification_url' => 'http://notificationUrl.com'),
     'items' => [
         [
             'product_id' => 1234,
@@ -51,22 +45,19 @@ $params = [
             'quantity' => 1
         ]
     ],
-    'customer' => [
-        'id' => 1234,
-        'name' => 'Customer Name',
-        'document' => 12345678900,
-        'email' => 'customer@gmail.com',
-        'address' => [
-            'street' => 'Street',
-            'number' => 123,
-            'postal_code' => '16985152',
-            'neighborhood' => 'Center',
-            'city' => 'City',
-            'state' => 'UF',
-            'complement' => '',
-            'country' => 'BR'
-        ]
-    ]
+    'customer_id' => 1234,
+    'customer_name' => 'Customer Name',
+    'customer_document' => 12345678900,
+    'customer_email' => 'customer@gmail.com',
+    'customer_address' => [
+    'customer_street' => 'Street',
+    'customer_number' => 123,
+    'customer_postal_code' => '16985152',
+    'customer_neighborhood' => 'Center',
+    'customer_city' => 'City',
+    'customer_state' => 'UF',
+    'customer_complement' => '',
+    'customer_country' => 'BR'
 ];
 
 $payment = new PaymentBilletFactory::fromArray($params);
@@ -77,44 +68,52 @@ $result = $payment->done();
 ```php
 <?php
 
-use Rockbuzz\SDKYapay\Config;
-use Rockbuzz\SDKYapay\Payment\Item;
-use Rockbuzz\SDKYapay\Payment\Items;
-use Rockbuzz\SDKYapay\Payment\Email;
-use Rockbuzz\SDKYapay\Payment\Address;
-use Rockbuzz\SDKYapay\Payment\Billing;
-use Rockbuzz\SDKYapay\Payment\Customer;
-use Rockbuzz\SDKYapay\PaymentCreditCard;
-use Rockbuzz\SDKYapay\Payment\CreditCard;
-use Rockbuzz\SDKYapay\Payment\TransactionCreditCard;
+use Rockbuzz\SDKYapay\PaymentCreditCardFactory;
 
-require __DIR__ . '/vendor/autoload.php';
+$params = [
+    'store_code' => 1234,
+    'username' => 'your_user',
+    'username' => 'your_pass',
+    'endpoint' => 'https://sandbox.gateway.yapay.com.br/checkout/api/v3/transacao',
+    'transaction_number' => 1234,
+    'transaction_value' => 1598,
+    'transaction_due_date' => new \Datetime(),
+    'transaction_notification_url' => 'http://notificationUrl.com'),
+    'creditcard_name' => 'Holder Name',
+    'creditcard_number' => 0000000000000000,
+    'creditcard_code' => 123,
+    'creditcard_month' => 10,
+    'creditcard_year' => 2020,
+    'items' => [
+        [
+            'product_id' => 1234,
+            'product_name' => 'Product Name',
+            'price_in_cents' => 15987
+            'quantity' => 1
+        ],
+        [
+            'product_id' => 2345,
+            'product_name' => 'Product Name',
+            'price_in_cents' => 15990
+            'quantity' => 1
+        ]
+    ],
+    'customer_id' => 1234,
+    'customer_name' => 'Customer Name',
+    'customer_document' => 12345678900,
+    'customer_email' => 'customer@gmail.com',
+    'customer_address' => [
+    'customer_street' => 'Street',
+    'customer_number' => 123,
+    'customer_postal_code' => '16985152',
+    'customer_neighborhood' => 'Center',
+    'customer_city' => 'City',
+    'customer_state' => 'UF',
+    'customer_complement' => '',
+    'customer_country' => 'BR'
+];
 
-$payment = new PaymentCreditCard(
-    new Config(
-        1234, 
-        'username', 
-        'password', 
-        'https://sandbox.gateway.yapay.com.br/checkout/api/v3/transacao'
-    ),
-    2,
-    new TransactionCreditCard(1, 159, 2, 'http://notificationUrl.com'),
-    new CreditCard('name', 123456789, 123, 10, 2020),
-    new Items([
-        new Item('1234', 'Product Name', 15987),
-        new Item('1235', 'Product Name', 13980),
-    ]),
-    new Billing(
-        new Customer(
-            12, 
-            'Customer Name', 
-            '123456789', 
-            new Email('email@email.com'), 
-            new Address('Street', 123, '', '96085150', 'Center', 'City', 'ST')
-        )
-    )
-);
-
+$payment = new PaymentCreditCardFactory::fromArray($params);
 $result = $payment->done();
 ```
 

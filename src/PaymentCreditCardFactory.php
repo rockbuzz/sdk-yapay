@@ -3,26 +3,33 @@
 namespace Rockbuzz\SDKYapay;
 
 use Rockbuzz\SDKYapay\Config;
-use Rockbuzz\SDKYapay\PaymentBillet;
-use Rockbuzz\SDKYapay\Payment\{Item, Items, Email, Billing,Address, Customer, TransactionBillet};
+use Rockbuzz\SDKYapay\PaymentCreditCard;
+use Rockbuzz\SDKYapay\Payment\{Item, Items, Email, Billing,Address, CreditCard, Customer, TransactionCreditCard};
 
-class PaymentoBoletoFactory
+class PaymentoCreditCardFactory
 {
-    public static function fromArray(array $params): PaymentBillet
+    public static function fromArray(array $params): PaymentCreditCard
     {
-        return new PaymentBillet(
+        return new PaymentCreditCard(
             new Config(
                 $params['store_code'], 
                 $params['username'], 
                 $params['password'], 
                 $params['endpoint']
             ), 
-            1, 
-            new TransactionBillet(
+            2, 
+            new TransactionCreditCard(
                 $params['transaction_number'], 
                 $params['transaction_value'], 
                 $params['transaction_due_date'],
                 $params['transaction_notification_url']
+            ), 
+            new CreditCard(
+                $params['creditcard_name'], 
+                $params['creditcard_number'], 
+                $params['creditcard_code'], 
+                $params['creditcard_month'],
+                $params['creditcard_year']
             ), 
             new Items(
                 array_map(function($item){
