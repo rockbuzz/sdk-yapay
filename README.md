@@ -25,43 +25,46 @@ use Rockbuzz\SDKYapay\PaymentBoletoFactory;
 $params = [
     'store_code' => 1234,
     'username' => 'your_user',
-    'username' => 'your_pass',
+    'password' => 'your_pass',
     'endpoint' => 'https://sandbox.gateway.yapay.com.br/checkout/api/v3/transacao',
     'transaction_number' => 1234,
     'transaction_value' => 1598,
     'transaction_due_date' => new \Datetime(),
-    'transaction_notification_url' => 'http://notificationUrl.com'),
+    'transaction_notification_url' => 'http://notificationUrl.com',
     'items' => [
         [
-            'product_id' => 1234,
-            'product_name' => 'Product Name',
-            'price_in_cents' => 15987
+            'id' => 1234,
+            'name' => 'Product Name',
+            'price_in_cents' => 15987,
             'quantity' => 1
         ],
         [
-            'product_id' => 2345,
-            'product_name' => 'Product Name',
-            'price_in_cents' => 15990
+            'id' => 2345,
+            'name' => 'Product Name',
+            'price_in_cents' => 15990,
             'quantity' => 1
         ]
     ],
     'customer_id' => 1234,
     'customer_name' => 'Customer Name',
     'customer_document' => 12345678900,
-    'customer_email' => 'customer@gmail.com',
-    'customer_address' => [
-    'customer_street' => 'Street',
-    'customer_number' => 123,
-    'customer_postal_code' => '16985152',
-    'customer_neighborhood' => 'Center',
-    'customer_city' => 'City',
-    'customer_state' => 'UF',
-    'customer_complement' => '',
-    'customer_country' => 'BR'
+    'email' => 'customer@gmail.com',
+    'street' => 'Street',
+    'number' => 123,
+    'postal_code' => '16985152',
+    'neighborhood' => 'Center',
+    'city' => 'City',
+    'state' => 'UF',
+    'complement' => '',
+    'country' => 'BR'
 ];
 
-$payment = new PaymentBoletoFactory::fromArray($params);
-$result = $payment->done();
+try {
+  $payment = PaymentBoletoFactory::fromArray($params);
+    $result = $payment->done();
+} catch (\Exception $e) {
+    //
+}
 ```
 
 `Payment CreditCard`
@@ -73,12 +76,12 @@ use Rockbuzz\SDKYapay\PaymentCreditCardFactory;
 $params = [
     'store_code' => 1234,
     'username' => 'your_user',
-    'username' => 'your_pass',
+    'password' => 'your_pass',
     'endpoint' => 'https://sandbox.gateway.yapay.com.br/checkout/api/v3/transacao',
     'transaction_number' => 1234,
     'transaction_value' => 1598,
-    'transaction_due_date' => new \Datetime(),
-    'transaction_notification_url' => 'http://notificationUrl.com'),
+    'transaction_installments' => 5,
+    'transaction_notification_url' => 'http://notificationUrl.com',
     'creditcard_name' => 'Holder Name',
     'creditcard_number' => 0000000000000000,
     'creditcard_code' => 123,
@@ -86,35 +89,38 @@ $params = [
     'creditcard_year' => 2020,
     'items' => [
         [
-            'product_id' => 1234,
-            'product_name' => 'Product Name',
-            'price_in_cents' => 15987
+            'id' => 1234,
+            'name' => 'Product Name',
+            'price_in_cents' => 15987,
             'quantity' => 1
         ],
         [
-            'product_id' => 2345,
-            'product_name' => 'Product Name',
-            'price_in_cents' => 15990
+            'id' => 2345,
+            'name' => 'Product Name',
+            'price_in_cents' => 15990,
             'quantity' => 1
         ]
     ],
     'customer_id' => 1234,
     'customer_name' => 'Customer Name',
     'customer_document' => 12345678900,
-    'customer_email' => 'customer@gmail.com',
-    'customer_address' => [
-    'customer_street' => 'Street',
-    'customer_number' => 123,
-    'customer_postal_code' => '16985152',
-    'customer_neighborhood' => 'Center',
-    'customer_city' => 'City',
-    'customer_state' => 'UF',
-    'customer_complement' => '',
-    'customer_country' => 'BR'
+    'email' => 'customer@gmail.com',
+    'street' => 'Street',
+    'number' => 123,
+    'postal_code' => '16985152',
+    'neighborhood' => 'Center',
+    'city' => 'City',
+    'state' => 'UF',
+    'complement' => '',
+    'country' => 'BR'
 ];
 
-$payment = new PaymentCreditCardFactory::fromArray($params);
-$result = $payment->done();
+try {
+    $payment = PaymentCreditCardFactory::fromArray($params);
+    $result = $payment->done();
+} catch (\Exception $e) {
+    //
+}
 ```
 
 `Result`
@@ -174,6 +180,11 @@ $jsonAbout = json_encode($about);
     "statusTransacao": 0,
     "codigoEstabelecimento": "xxxxxxxxxxxxxx"
 }
+```
+
+`Payment factory fromArray can throw an exception`
+```php
+\DomainException::class
 ```
 
 `Payment done can throw an exception`
