@@ -20,7 +20,7 @@ $ composer require rockbuzz/sdk-yapay
 ```php
 <?php
 
-use Rockbuzz\SDKYapay\PaymentBilletFactory;
+use Rockbuzz\SDKYapay\PaymentBoletoFactory;
 
 $params = [
     'store_code' => 1234,
@@ -60,7 +60,7 @@ $params = [
     'customer_country' => 'BR'
 ];
 
-$payment = new PaymentBilletFactory::fromArray($params);
+$payment = new PaymentBoletoFactory::fromArray($params);
 $result = $payment->done();
 ```
 

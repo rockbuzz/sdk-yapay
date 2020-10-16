@@ -2,63 +2,78 @@
 
 namespace Rockbuzz\SDKYapay;
 
+use DomainException;
 use Rockbuzz\SDKYapay\Config;
 use Rockbuzz\SDKYapay\PaymentCreditCard;
 use Rockbuzz\SDKYapay\Payment\{Item, Items, Email, Billing,Address, CreditCard, Customer, TransactionCreditCard};
 
-class PaymentoCreditCardFactory
+class PaymentCreditCardFactory
 {
     public static function fromArray(array $params): PaymentCreditCard
     {
         return new PaymentCreditCard(
             new Config(
-                $params['store_code'], 
-                $params['username'], 
-                $params['password'], 
-                $params['endpoint']
+                self::getValue('store_code', $params), 
+                self::getValue('username', $params), 
+                self::getValue('password', $params),
+                self::getValue('endpoint', $params)
             ), 
             2, 
             new TransactionCreditCard(
-                $params['transaction_number'], 
-                $params['transaction_value'], 
-                $params['transaction_due_date'],
-                $params['transaction_notification_url']
+                self::getValue('transaction_number', $params),
+                self::getValue('transaction_value', $params),
+                self::getValue('transaction_due_date', $params),
+                self::getValue('transaction_notification_url', $params)
             ), 
             new CreditCard(
-                $params['creditcard_name'], 
-                $params['creditcard_number'], 
-                $params['creditcard_code'], 
-                $params['creditcard_month'],
-                $params['creditcard_year']
+                self::getValue('creditcard_name', $params),
+                self::getValue('creditcard_number', $params),
+                self::getValue('creditcard_code', $params),
+                self::getValue('creditcard_month', $params),
+                self::getValue('creditcard_year', $params)
             ), 
             new Items(
-                array_map(function($item){
-                    new Item(
-                        $item['product_id'], 
-                        $item['product_name'], 
-                        $item['price_in_cents'],
-                        $item['quantity']
+                array_map(function($item) use ($params) {
+                    return new Item(
+                        self::getValue('id', $item),
+                        self::getValue('name', $item),
+                        self::getValue('price_in_cents', $item),
+                        self::getValue('quantity', $item)
                     );
-                }, $params['items'])
+                }, self::getValue('items', $params))
             ), 
             new Billing(
                 new Customer(
-                    $params['customer_id'], 
-                    $params['customer_name'],
-                    $params['customer_document'],
-                    new Email($params['customer_email']), 
+                    self::getValue('customer_id', $params),
+                    self::getValue('customer_name', $params),
+                    self::getValue('customer_document', $params),
+                    new Email(self::getValue('email', $params)), 
                     new Address(
-                        $params['customer_address_street'], 
-                        $params['customer_address_number'], 
-                        $params['customer_address_postal_code'], 
-                        $params['customer_address_neighborhood'],
-                        $params['customer_address_city'], 
-                        $params['customer_address_state'], 
-                        $params['customer_address_complement'],
-                        $params['customer_address_country']
+                        self::getValue('street', $params),
+                        self::getValue('number', $params),
+                        self::getValue('complement', $params),
+                        self::getValue('postal_code', $params),
+                        self::getValue('neighborhood', $params),
+                        self::getValue('city', $params),
+                        self::getValue('state', $params),
+                        self::getValue('country', $params)
                     )
                 )
             )
         );
+    }
+
+    /**
+     * @param string $key
+     * @param array $params
+     * @throws DomainException
+     */
+    private static function getValue(string $key, array $params)
+    {
+        if (array_key_exists($key, $params)) {
+            return $params[$key];
+        }
+
+        throw new DomainException("Key {$key} is required");
     }
 }
