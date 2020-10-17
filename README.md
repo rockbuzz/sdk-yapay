@@ -6,7 +6,7 @@ Layer to abstract communication with Yapay Payment API.
 
 ## Requirements
 
-PHP: >=7.0
+PHP >=7.1
 
 ## Install
 
@@ -20,88 +20,107 @@ $ composer require rockbuzz/sdk-yapay
 ```php
 <?php
 
-use Rockbuzz\SDKYapay\Config;
-use Rockbuzz\SDKYapay\Payment\Item;
-use Rockbuzz\SDKYapay\Payment\Items;
-use Rockbuzz\SDKYapay\Payment\Email;
-use Rockbuzz\SDKYapay\PaymentBillet;
-use Rockbuzz\SDKYapay\Payment\Billing;
-use Rockbuzz\SDKYapay\Payment\Address;
-use Rockbuzz\SDKYapay\Payment\Customer;
-use Rockbuzz\SDKYapay\Payment\TransactionBillet;
+use Rockbuzz\SDKYapay\PaymentBoletoFactory;
 
+$params = [
+    'store_code' => 1234,
+    'username' => 'your_user',
+    'password' => 'your_pass',
+    'endpoint' => 'https://sandbox.gateway.yapay.com.br/checkout/api/v3/transacao',
+    'transaction_number' => 1234,
+    'transaction_value' => 1598,
+    'transaction_due_date' => new \Datetime(),
+    'transaction_notification_url' => 'http://notificationUrl.com',
+    'items' => [
+        [
+            'id' => 1234,
+            'name' => 'Product Name',
+            'price_in_cents' => 15987,
+            'quantity' => 1
+        ],
+        [
+            'id' => 2345,
+            'name' => 'Product Name',
+            'price_in_cents' => 15990,
+            'quantity' => 1
+        ]
+    ],
+    'customer_id' => 1234,
+    'customer_name' => 'Customer Name',
+    'customer_document' => 12345678900,
+    'email' => 'customer@gmail.com',
+    'street' => 'Street',
+    'number' => 123,
+    'postal_code' => '16985152',
+    'neighborhood' => 'Center',
+    'city' => 'City',
+    'state' => 'UF',
+    'complement' => '',
+    'country' => 'BR'
+];
 
-require __DIR__ . '/vendor/autoload.php';
-
-$payment = new PaymentBillet(
-    new Config(
-        1234, 
-        'username', 
-        'password', 
-        'https://sandbox.gateway.yapay.com.br/checkout/api/v3/transacao'
-    ), 
-    1, 
-    new TransactionBillet(123, 1598, new \Datetime(), 'http://notificationUrl.com'), 
-    new Items([
-        new Item('1234', 'Product Name', 15987),
-        new Item('1235', 'Product Name', 13980),
-    ]), 
-    new Billing(new Customer(
-            12, 
-            'Customer Name', 
-            '123456789', 
-            new Email('email@email.com'), 
-            new Address('Street', 123, '', '96085150', 'Center', 'City', 'ST')
-        )
-    )
-);
-
-$result = $payment->done();
+try {
+  $payment = PaymentBoletoFactory::fromArray($params);
+    $result = $payment->done();
+} catch (\Exception $e) {
+    //
+}
 ```
 
 `Payment CreditCard`
 ```php
 <?php
 
-use Rockbuzz\SDKYapay\Config;
-use Rockbuzz\SDKYapay\Payment\Item;
-use Rockbuzz\SDKYapay\Payment\Items;
-use Rockbuzz\SDKYapay\Payment\Email;
-use Rockbuzz\SDKYapay\Payment\Address;
-use Rockbuzz\SDKYapay\Payment\Billing;
-use Rockbuzz\SDKYapay\Payment\Customer;
-use Rockbuzz\SDKYapay\PaymentCreditCard;
-use Rockbuzz\SDKYapay\Payment\CreditCard;
-use Rockbuzz\SDKYapay\Payment\TransactionCreditCard;
+use Rockbuzz\SDKYapay\PaymentCreditCardFactory;
 
-require __DIR__ . '/vendor/autoload.php';
+$params = [
+    'store_code' => 1234,
+    'username' => 'your_user',
+    'password' => 'your_pass',
+    'endpoint' => 'https://sandbox.gateway.yapay.com.br/checkout/api/v3/transacao',
+    'transaction_number' => 1234,
+    'transaction_value' => 1598,
+    'transaction_installments' => 5,
+    'transaction_notification_url' => 'http://notificationUrl.com',
+    'creditcard_name' => 'Holder Name',
+    'creditcard_number' => 0000000000000000,
+    'creditcard_code' => 123,
+    'creditcard_month' => 10,
+    'creditcard_year' => 2020,
+    'items' => [
+        [
+            'id' => 1234,
+            'name' => 'Product Name',
+            'price_in_cents' => 15987,
+            'quantity' => 1
+        ],
+        [
+            'id' => 2345,
+            'name' => 'Product Name',
+            'price_in_cents' => 15990,
+            'quantity' => 1
+        ]
+    ],
+    'customer_id' => 1234,
+    'customer_name' => 'Customer Name',
+    'customer_document' => 12345678900,
+    'email' => 'customer@gmail.com',
+    'street' => 'Street',
+    'number' => 123,
+    'postal_code' => '16985152',
+    'neighborhood' => 'Center',
+    'city' => 'City',
+    'state' => 'UF',
+    'complement' => '',
+    'country' => 'BR'
+];
 
-$payment = new PaymentCreditCard(
-    new Config(
-        1234, 
-        'username', 
-        'password', 
-        'https://sandbox.gateway.yapay.com.br/checkout/api/v3/transacao'
-    ),
-    2,
-    new TransactionCreditCard(1, 159, 2, 'http://notificationUrl.com'),
-    new CreditCard('name', 123456789, 123, 10, 2020),
-    new Items([
-        new Item('1234', 'Product Name', 15987),
-        new Item('1235', 'Product Name', 13980),
-    ]),
-    new Billing(
-        new Customer(
-            12, 
-            'Customer Name', 
-            '123456789', 
-            new Email('email@email.com'), 
-            new Address('Street', 123, '', '96085150', 'Center', 'City', 'ST')
-        )
-    )
-);
-
-$result = $payment->done();
+try {
+    $payment = PaymentCreditCardFactory::fromArray($params);
+    $result = $payment->done();
+} catch (\Exception $e) {
+    //
+}
 ```
 
 `Result`
@@ -161,6 +180,11 @@ $jsonAbout = json_encode($about);
     "statusTransacao": 0,
     "codigoEstabelecimento": "xxxxxxxxxxxxxx"
 }
+```
+
+`Payment factory fromArray can throw an exception`
+```php
+\DomainException::class
 ```
 
 `Payment done can throw an exception`
