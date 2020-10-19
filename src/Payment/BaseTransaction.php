@@ -2,7 +2,7 @@
 
 namespace Rockbuzz\SDKYapay\Payment;
 
-class BaseTransaction
+abstract class BaseTransaction
 {
     /**
      * @var int
@@ -14,19 +14,11 @@ class BaseTransaction
      */
     protected $value;
 
-    /**
-     * @var string
-     */
-    protected $notificationUrl;
-
-    public function __construct(
-        int $number, 
-        int $value, 
-        string $notificationUrl
-    )
+    public function __construct(int $number, int $value)
     {
         $this->number = $number;      
         $this->value = $value;      
-        $this->notificationUrl = $notificationUrl;      
     }
+
+    abstract protected function notificationUrl(): string;
 }

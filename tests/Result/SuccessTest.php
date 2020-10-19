@@ -3,7 +3,6 @@
 namespace Tests\Result;
 
 use PHPUnit\Framework\TestCase;
-use Rockbuzz\SDKYapay\Result\Fail;
 use Rockbuzz\SDKYapay\Result\Success;
 
 class SuccessTest extends TestCase

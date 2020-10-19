@@ -4,38 +4,27 @@ namespace Rockbuzz\SDKYapay;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
-use Rockbuzz\SDKYapay\Contract\Payments;
 use GuzzleHttp\Exception\GuzzleException;
-use Rockbuzz\SDKYapay\Exception\PaymentException;
+use Rockbuzz\SDKYapay\Exception\SDKYapayException;
+use Rockbuzz\SDKYapay\Contract\Transactions as TransactionsContract;
 
-class Transactions implements Payments
+class Transactions implements TransactionsContract
 {
-    /**
-     * @var Config
-     */
-    private $config;
-    /**
-     * @var int
-     */
-    private $numberTransaction;
 
-    public function __construct(
-        Config $config,
-        int $numberTransaction
-    ) {
-        $this->config = $config;
-        $this->numberTransaction = $numberTransaction;
+    public function __construct(ClientInterface $client = null) 
+    {
+        $this->client = $client ?? new Client();
     }
 
     /**
      * @inheritDoc
      */
-    public function findByStoreCodeAndPaymentCode(ClientInterface $client = null): Result
+    public function findByCode($transactionCode): Result
     {
         try {
-            return new Result($this->getContents($client ?? new Client()));
+            return new Result($this->getContents($transactionCode));
         } catch (\Exception $exception) {
-            throw new Paymentexception(
+            throw new SDKYapayException(
                 $exception->getMessage(),
                 $exception->getCode(),
                 $exception
@@ -44,22 +33,26 @@ class Transactions implements Payments
     }
 
     /**
-     * @param ClientInterface $client
+     * @param mixed $transactionCode
      * @return string
      * @throws GuzzleException
      */
-    private function getContents(ClientInterface $client): string
+    private function getContents($transactionCode): string
     {
-        $response = $client->request('GET', $this->config->getEndpoint(), [
-            'headers' => [
-                'Accept' => 'application/json',
-                'Content-Type' => 'application/json'
-            ],
-            'auth' => [
-                $this->config->getUsername(),
-                $this->config->getPassword(),
+        $response = $this->client->request(
+            'GET', 
+            $_ENV['SDK_YAPAY_ENDPOINT'] . '/checkout/api/v3/transacao/' . $_ENV['SDK_YAPAY_STORE_CODE'] . '/' . $transactionCode, 
+            [
+                'headers' => [
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json'
+                ],
+                'auth' => [
+                    $_ENV['SDK_YAPAY_USERNAME'],
+                    $_ENV['SDK_YAPAY_PASSWORD'],
+                ]
             ]
-        ]);
+        );
 
         return $response->getBody()->getContents();
     }

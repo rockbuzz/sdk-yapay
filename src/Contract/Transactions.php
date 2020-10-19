@@ -5,11 +5,12 @@ namespace Rockbuzz\SDKYapay\Contract;
 use Rockbuzz\SDKYapay\Result;
 use Rockbuzz\SDKYapay\Exception\SDKYapayException;
 
-interface Payment
+interface Transactions
 {
     /**
+     * @param mixed $transactionCode
      * @return Result
      * @throws SDKYapayException
      */
-    public function done(): Result;
+    public function findByCode($transactionCode): Result;
 }

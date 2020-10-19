@@ -7,9 +7,8 @@ use GuzzleHttp\ClientInterface;
 use Rockbuzz\SDKYapay\Payment\Items;
 use Rockbuzz\SDKYapay\Payment\Billing;
 use Rockbuzz\SDKYapay\Contract\Payment;
-use GuzzleHttp\Exception\GuzzleException;
 use Rockbuzz\SDKYapay\Payment\CreditCard;
-use Rockbuzz\SDKYapay\Exception\PaymentException;
+use Rockbuzz\SDKYapay\Exception\SDKYapayException;
 use Rockbuzz\SDKYapay\Payment\TransactionCreditCard;
 
 class PaymentCreditCard extends BasePayment implements Payment
@@ -24,29 +23,39 @@ class PaymentCreditCard extends BasePayment implements Payment
      */
     protected $creditCard;
 
+    /**
+     * @var ClientInterface
+     */
+    protected $client;
+
     public function __construct(
-        Config $config,
-        int $methodCode,
         TransactionCreditCard $transaction,
         CreditCard $creditCard,
         Items $items,
-        Billing $billing
+        Billing $billing,
+        ClientInterface $client = null
     )
     {
-        parent::__construct($config, $methodCode, $items, $billing);
+        parent::__construct($items, $billing);
         $this->transaction = $transaction;
         $this->creditCard = $creditCard;
+        $this->client = $client ?? new Client();
+    }
+
+    protected function methodCode(): int
+    {
+        return 2;
     }
 
     /**
      * @inheritDoc
      */
-    public function done(ClientInterface $client = null): Result
+    public function done(): Result
     {
         try {
-            return new Result($this->getContents($client ?? new Client()));
+            return new Result($this->getContents());
         } catch (\Exception $exception) {
-            throw new Paymentexception(
+            throw new SDKYapayException(
                 $exception->getMessage(),
                 $exception->getCode(),
                 $exception
@@ -54,25 +63,20 @@ class PaymentCreditCard extends BasePayment implements Payment
         }
     }
 
-    /**
-     * @param ClientInterface $client
-     * @return string
-     * @throws GuzzleException
-     */
-    private function getContents(ClientInterface $client)
+    private function getContents(): string
     {
-        $response = $client->request('POST', $this->config->getEndpoint(), [
+        $response = $this->client->request('POST', $_ENV['SDK_YAPAY_ENDPOINT'] . '/checkout/api/v3/transacao', [
             'headers' => [
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json'
             ],
             'auth' => [
-                $this->config->getUsername(),
-                $this->config->getPassword(),
+                $_ENV['SDK_YAPAY_USERNAME'],
+                $_ENV['SDK_YAPAY_PASSWORD'],
             ],
             'body' => json_encode([
-                'codigoEstabelecimento' => $this->config->getStoreCode(),
-                'codigoFormaPagamento' => $this->methodCode,
+                'codigoEstabelecimento' => $_ENV['SDK_YAPAY_STORE_CODE'],
+                'codigoFormaPagamento' => $this->methodCode(),
                 'transacao' => $this->transaction,
                 'dadosCartao' => $this->creditCard,
                 'itensDoPedido' => $this->items,

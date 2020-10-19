@@ -12,15 +12,18 @@ class TransactionCreditCardTest extends TestCase
      */
     public function aTransactionCreditCardMustHaveToJason()
     {
+        $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . './../../');
+        $dotenv->load();
+
         $transactionCreditCard = new TransactionCreditCard(
-            123, 1598, 2, 'http://notification-url.com'
+            123, 1598, 2
         );
 
         $json = json_encode([
             'numeroTransacao' => 123,
             'valor' => 1598,
             'parcelas' => 2,
-            'urlCampainha' => 'http://notification-url.com'
+            'urlCampainha' => 'https://notification_url.com'
         ]);
 
         $this->assertEquals($json, json_encode($transactionCreditCard));

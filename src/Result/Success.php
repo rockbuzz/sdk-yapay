@@ -14,9 +14,6 @@ class Success implements JsonSerializable
     const TRANSACTION_STATUS_BILLET_LOWER = 21;
     const TRANSACTION_STATUS_BILLET_UPPER = 22;
 
-    /**
-     * @var string
-     */
     protected $json;
 
     public function __construct(string $json)

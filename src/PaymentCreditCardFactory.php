@@ -3,7 +3,6 @@
 namespace Rockbuzz\SDKYapay;
 
 use DomainException;
-use Rockbuzz\SDKYapay\Config;
 use Rockbuzz\SDKYapay\PaymentCreditCard;
 use Rockbuzz\SDKYapay\Payment\{Item, Items, Email, Billing,Address, CreditCard, Customer, TransactionCreditCard};
 
@@ -12,13 +11,6 @@ class PaymentCreditCardFactory
     public static function fromArray(array $params): PaymentCreditCard
     {
         return new PaymentCreditCard(
-            new Config(
-                self::getValue('store_code', $params), 
-                self::getValue('username', $params), 
-                self::getValue('password', $params),
-                self::getValue('endpoint', $params)
-            ), 
-            2, 
             new TransactionCreditCard(
                 self::getValue('transaction_number', $params),
                 self::getValue('transaction_value', $params),

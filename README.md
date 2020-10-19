@@ -20,17 +20,15 @@ $ composer require rockbuzz/sdk-yapay
 ```php
 <?php
 
+$dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . './to/env_directory/');
+$dotenv->load();
+
 use Rockbuzz\SDKYapay\PaymentBoletoFactory;
 
 $params = [
-    'store_code' => 1234,
-    'username' => 'your_user',
-    'password' => 'your_pass',
-    'endpoint' => 'https://sandbox.gateway.yapay.com.br/checkout/api/v3/transacao',
     'transaction_number' => 1234,
     'transaction_value' => 1598,
     'transaction_due_date' => new \Datetime(),
-    'transaction_notification_url' => 'http://notificationUrl.com',
     'items' => [
         [
             'id' => 1234,
@@ -71,17 +69,15 @@ try {
 ```php
 <?php
 
+$dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . './to/env_directory/');
+$dotenv->load();
+
 use Rockbuzz\SDKYapay\PaymentCreditCardFactory;
 
 $params = [
-    'store_code' => 1234,
-    'username' => 'your_user',
-    'password' => 'your_pass',
-    'endpoint' => 'https://sandbox.gateway.yapay.com.br/checkout/api/v3/transacao',
     'transaction_number' => 1234,
     'transaction_value' => 1598,
     'transaction_installments' => 5,
-    'transaction_notification_url' => 'http://notificationUrl.com',
     'creditcard_name' => 'Holder Name',
     'creditcard_number' => 0000000000000000,
     'creditcard_code' => 123,

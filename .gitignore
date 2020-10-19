@@ -1,3 +1,4 @@
-index.php
-vendor
-/.idea
+vendor/
+.idea
+.env
+example.php

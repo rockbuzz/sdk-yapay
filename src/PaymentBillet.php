@@ -2,15 +2,11 @@
 
 namespace Rockbuzz\SDKYapay;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\ClientInterface;
-use Rockbuzz\SDKYapay\Payment\ExtraFields;
-use Rockbuzz\SDKYapay\Payment\Items;
-use Rockbuzz\SDKYapay\Payment\Billing;
 use Rockbuzz\SDKYapay\Contract\Payment;
-use GuzzleHttp\Exception\GuzzleException;
-use Rockbuzz\SDKYapay\Payment\TransactionBillet;
-use Rockbuzz\SDKYapay\Exception\PaymentException;
+use GuzzleHttp\{Client, ClientInterface};
+use Rockbuzz\SDKYapay\Payment\{Items, Billing};
+use Rockbuzz\SDKYapay\Exception\SDKYapayException;
+use Rockbuzz\SDKYapay\Payment\{ExtraFields, TransactionBillet};
 
 class PaymentBillet extends BasePayment implements Payment
 {
@@ -21,30 +17,40 @@ class PaymentBillet extends BasePayment implements Payment
     /**
      * @var ExtraFields
      */
-    private $extraFields;
+    protected $extraFields;
+
+    /**
+     * @var ClientInterface
+     */
+    protected $client;
 
     public function __construct(
-        Config $config,
-        int $methodCode,
         TransactionBillet $transaction,
         Items $items,
         Billing $billing,
-        ExtraFields $extraFields = null
+        ExtraFields $extraFields = null,
+        ClientInterface $client = null
     ) {
-        parent::__construct($config, $methodCode, $items, $billing);
+        parent::__construct($items, $billing);
         $this->transaction = $transaction;
         $this->extraFields = $extraFields;
+        $this->client = $client ?? new Client();
+    }
+
+    protected function methodCode(): int
+    {
+        return 1;
     }
 
     /**
      * @inheritDoc
      */
-    public function done(ClientInterface $client = null): Result
+    public function done(): Result
     {
         try {
-            return new Result($this->getContents($client ?? new Client()));
+            return new Result($this->getContents());
         } catch (\Exception $exception) {
-            throw new Paymentexception(
+            throw new SDKYapayException(
                 $exception->getMessage(),
                 $exception->getCode(),
                 $exception
@@ -52,25 +58,20 @@ class PaymentBillet extends BasePayment implements Payment
         }
     }
 
-    /**
-     * @param ClientInterface $client
-     * @return string
-     * @throws GuzzleException
-     */
-    private function getContents(ClientInterface $client)
+    private function getContents(): string
     {
-        $response = $client->request('POST', $this->config->getEndpoint(), [
+        $response = $this->client->request('POST', $_ENV['SDK_YAPAY_ENDPOINT'] . '/checkout/api/v3/transacao', [
             'headers' => [
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json'
             ],
             'auth' => [
-                $this->config->getUsername(),
-                $this->config->getPassword(),
+                $_ENV['SDK_YAPAY_USERNAME'],
+                $_ENV['SDK_YAPAY_PASSWORD'],
             ],
             'body' => json_encode([
-                'codigoEstabelecimento' => $this->config->getStoreCode(),
-                'codigoFormaPagamento' => $this->methodCode,
+                'codigoEstabelecimento' => $_ENV['SDK_YAPAY_STORE_CODE'],
+                'codigoFormaPagamento' => $this->methodCode(),
                 'transacao' => $this->transaction,
                 'itensDoPedido' => $this->items,
                 'dadosCobranca' => $this->billing,

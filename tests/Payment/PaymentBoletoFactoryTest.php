@@ -8,35 +8,6 @@ use Rockbuzz\SDKYapay\PaymentBoletoFactory;
 
 class PaymentBoletoFactoryTest extends TestCase
 {
-
-    public function test_payment_boleto_factory_must_throw_exception_when_store_code_is_not_informed()
-    {
-        $this->expectException(DomainException::class);
-        
-        PaymentBoletoFactory::fromArray($this->paramsWithExcept('store_code'));
-    }
-
-    public function test_payment_boleto_factory_must_throw_exception_when_username_is_not_informed()
-    {
-        $this->expectException(DomainException::class);
-        
-        PaymentBoletoFactory::fromArray($this->paramsWithExcept('username'));
-    }
-
-    public function test_payment_boleto_factory_must_throw_exception_when_password_is_not_informed()
-    {
-        $this->expectException(DomainException::class);
-        
-        PaymentBoletoFactory::fromArray($this->paramsWithExcept('password'));
-    }
-
-    public function test_payment_boleto_factory_must_throw_exception_when_endpoint_is_not_informed()
-    {
-        $this->expectException(DomainException::class);
-        
-        PaymentBoletoFactory::fromArray($this->paramsWithExcept('endpoint'));
-    }
-
     public function test_payment_boleto_factory_must_throw_exception_when_transaction_number_is_not_informed()
     {
         $this->expectException(DomainException::class);

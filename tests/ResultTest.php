@@ -2,10 +2,9 @@
 
 namespace Tests;
 
-use PHPUnit\Framework\TestCase;
 use Rockbuzz\SDKYapay\Result;
-use Rockbuzz\SDKYapay\Result\Fail;
-use Rockbuzz\SDKYapay\Result\Success;
+use PHPUnit\Framework\TestCase;
+use Rockbuzz\SDKYapay\Result\{Fail, Success};
 
 class ResultTest extends TestCase
 {

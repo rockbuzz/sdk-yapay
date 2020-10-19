@@ -8,11 +8,6 @@ use Rockbuzz\SDKYapay\Payment\Billing;
 abstract class BasePayment
 {
     /**
-     * @var Config
-     */
-    protected $config;
-
-    /**
      * @var int
      */
     protected $methodCode;
@@ -27,16 +22,11 @@ abstract class BasePayment
      */
     protected $billing;
 
-    public function __construct(
-        Config $config, 
-        int $methodCode,
-        Items $items,
-        Billing $billing
-    )
+    public function __construct(Items $items, Billing $billing)
     {
-        $this->config = $config;
-        $this->methodCode = $methodCode;
         $this->items = $items;
         $this->billing = $billing;
     }
+
+    abstract protected function methodCode(): int;
 }

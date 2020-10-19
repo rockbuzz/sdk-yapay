@@ -3,7 +3,6 @@
 namespace Rockbuzz\SDKYapay;
 
 use DomainException;
-use Rockbuzz\SDKYapay\Config;
 use Rockbuzz\SDKYapay\PaymentBillet;
 use Rockbuzz\SDKYapay\Payment\{Item, Items, Email, Billing,Address, Customer, TransactionBillet};
 
@@ -12,13 +11,6 @@ class PaymentBoletoFactory
     public static function fromArray(array $params): PaymentBillet
     {
         return new PaymentBillet(
-            new Config(
-                self::getValue('store_code', $params), 
-                self::getValue('username', $params), 
-                self::getValue('password', $params),
-                self::getValue('endpoint', $params)
-            ), 
-            1, 
             new TransactionBillet(
                 self::getValue('transaction_number', $params),
                 self::getValue('transaction_value', $params),
