@@ -9,11 +9,11 @@ class Email
     /**
      * @var string
      */
-    private $value;    
+    private $value;
 
     public function __construct(string $value)
     {
-        $this->value = $value;        
+        $this->value = $value;
     }
 
     /**

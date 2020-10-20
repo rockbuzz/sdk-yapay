@@ -16,8 +16,8 @@ abstract class BaseTransaction
 
     public function __construct(int $number, int $value)
     {
-        $this->number = $number;      
-        $this->value = $value;      
+        $this->number = $number;
+        $this->value = $value;
     }
 
     abstract protected function notificationUrl(): string;

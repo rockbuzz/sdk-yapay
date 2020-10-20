@@ -11,7 +11,7 @@ use Rockbuzz\SDKYapay\Contract\Transactions as TransactionsContract;
 class Transactions implements TransactionsContract
 {
 
-    public function __construct(ClientInterface $client = null) 
+    public function __construct(ClientInterface $client = null)
     {
         $this->client = $client ?? new Client();
     }
@@ -40,8 +40,9 @@ class Transactions implements TransactionsContract
     private function getContents($transactionCode): string
     {
         $response = $this->client->request(
-            'GET', 
-            $_ENV['SDK_YAPAY_ENDPOINT'] . '/checkout/api/v3/transacao/' . $_ENV['SDK_YAPAY_STORE_CODE'] . '/' . $transactionCode, 
+            'GET',
+            $_ENV['SDK_YAPAY_ENDPOINT'] . '/checkout/api/v3/transacao/'
+            . $_ENV['SDK_YAPAY_STORE_CODE'] . '/' . $transactionCode,
             [
                 'headers' => [
                     'Accept' => 'application/json',
