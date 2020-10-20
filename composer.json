@@ -20,7 +20,8 @@
     "require": {
         "php": ">=7.1",
         "guzzlehttp/guzzle": "^6.5",
-        "vlucas/phpdotenv": "^5.2"
+        "vlucas/phpdotenv": "^5.2",
+        "rockbuzz/std-payment": "^0.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^7.5",

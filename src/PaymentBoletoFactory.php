@@ -4,7 +4,8 @@ namespace Rockbuzz\SDKYapay;
 
 use DomainException;
 use Rockbuzz\SDKYapay\PaymentBillet;
-use Rockbuzz\SDKYapay\Payment\{Item, Items, Email, Billing,Address, Customer, TransactionBillet};
+use Rockbuzz\SDKYapay\Payment\{Items, Billing, TransactionBillet};
+use Rockbuzz\StdPayment\ValueObject\{Address, Customer, Email, Item};
 
 class PaymentBoletoFactory
 {

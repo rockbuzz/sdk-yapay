@@ -2,10 +2,11 @@
 
 namespace Rockbuzz\SDKYapay;
 
-use Rockbuzz\SDKYapay\Contract\Payment;
+use Rockbuzz\StdPayment\Payment;
 use GuzzleHttp\{Client, ClientInterface};
+use Rockbuzz\StdPayment\StdPaymentException;
 use Rockbuzz\SDKYapay\Payment\{Items, Billing};
-use Rockbuzz\SDKYapay\Exception\SDKYapayException;
+use Rockbuzz\StdPayment\Result as ResultContract;
 use Rockbuzz\SDKYapay\Payment\{ExtraFields, TransactionBillet};
 
 class PaymentBillet extends BasePayment implements Payment
@@ -45,12 +46,12 @@ class PaymentBillet extends BasePayment implements Payment
     /**
      * @inheritDoc
      */
-    public function done(): Result
+    public function done(): ResultContract
     {
         try {
             return new Result($this->getContents());
         } catch (\Exception $exception) {
-            throw new SDKYapayException(
+            throw new StdPaymentException(
                 $exception->getMessage(),
                 $exception->getCode(),
                 $exception

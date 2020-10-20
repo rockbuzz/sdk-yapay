@@ -3,46 +3,18 @@
 namespace Rockbuzz\SDKYapay\Payment;
 
 use JsonSerializable;
+use Rockbuzz\StdPayment\ValueObject\CreditCard as BaseCreditCard;
 
-class CreditCard implements JsonSerializable
+class CreditCard extends BaseCreditCard implements JsonSerializable
 {
-    /**
-     * @var string
-     */
-    private $holderName;
-
-    /**
-     * @var int
-     */
-    private $number;
-
-    /**
-     * @var int
-     */
-    private $securityCode;
-
-    /**
-     * @var int
-     */
-    private $expirationMonth;
-
-    /**
-     * @var int
-     */
-    private $expirationYear;
-
     public function __construct(
         string $holderName,
         $number,
-        $securityCode,
-        int $expirationMonth,
-        int $expirationYear
+        $code,
+        int $month,
+        int $year
     ) {
-        $this->holderName = $holderName;
-        $this->number = $number;
-        $this->securityCode = $securityCode;
-        $this->expirationMonth = $expirationMonth;
-        $this->expirationYear = $expirationYear;
+        parent::__construct($holderName, $number, $code, $month, $year);
     }
 
     /**
@@ -51,10 +23,10 @@ class CreditCard implements JsonSerializable
     public function jsonSerialize(): array
     {
         return [
-            'nomePortador' => $this->holderName,
-            'numeroCartao' => $this->number,
-            'codigoSeguranca' => $this->securityCode,
-            'dataValidade' => "{$this->expirationMonth}/{$this->expirationYear}"
+            'nomePortador' => $this->getHolderName(),
+            'numeroCartao' => $this->getNumber(),
+            'codigoSeguranca' => $this->getCode(),
+            'dataValidade' => "{$this->getMonth()}/{$this->getYear()}"
         ];
     }
 }

@@ -3,10 +3,8 @@
 namespace Tests\Payment;
 
 use PHPUnit\Framework\TestCase;
-use Rockbuzz\SDKYapay\Payment\Customer;
 use Rockbuzz\SDKYapay\Payment\Billing;
-use Rockbuzz\SDKYapay\Payment\Email;
-use Rockbuzz\SDKYapay\Payment\Address;
+use Rockbuzz\StdPayment\ValueObject\{Address, Customer, Email};
 
 class BillingTest extends TestCase
 {

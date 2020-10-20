@@ -2,10 +2,12 @@
 
 namespace Rockbuzz\SDKYapay;
 
+use JsonSerializable;
 use Rockbuzz\SDKYapay\Result\Fail;
 use Rockbuzz\SDKYapay\Result\Success;
+use Rockbuzz\StdPayment\Result as ResultContract;
 
-class Result
+class Result implements ResultContract
 {
     /**
      * @var string
@@ -20,7 +22,7 @@ class Result
     /**
      * @return Fail|Success
      */
-    public function about()
+    public function about(): JsonSerializable
     {
         if ($this->isSuccess()) {
             return new Success($this->json);

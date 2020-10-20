@@ -3,6 +3,7 @@
 namespace Rockbuzz\SDKYapay\Payment;
 
 use JsonSerializable;
+use Rockbuzz\StdPayment\ValueObject\Item;
 
 class Items implements JsonSerializable
 {
@@ -36,8 +37,8 @@ class Items implements JsonSerializable
     {
         return array_map(function (Item $item) {
             return [
-                'codigoProduto' => $item->getProductId(),
-                'nomeProduto' => $item->getProductName(),
+                'codigoProduto' => $item->getId(),
+                'nomeProduto' => $item->getName(),
                 'valorUnitarioProduto' => $item->getPriceInCents(),
                 'quantidadeProduto' => $item->getQuantity()
             ];

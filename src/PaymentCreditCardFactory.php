@@ -4,7 +4,8 @@ namespace Rockbuzz\SDKYapay;
 
 use DomainException;
 use Rockbuzz\SDKYapay\PaymentCreditCard;
-use Rockbuzz\SDKYapay\Payment\{Item, Items, Email, Billing,Address, CreditCard, Customer, TransactionCreditCard};
+use Rockbuzz\StdPayment\ValueObject\{Address, Customer, Email, Item};
+use Rockbuzz\SDKYapay\Payment\{Items, Billing, CreditCard, TransactionCreditCard};
 
 class PaymentCreditCardFactory
 {

@@ -5,8 +5,8 @@ namespace Rockbuzz\SDKYapay;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
-use Rockbuzz\SDKYapay\Exception\SDKYapayException;
-use Rockbuzz\SDKYapay\Contract\Transactions as TransactionsContract;
+use Rockbuzz\StdPayment\StdPaymentException;
+use Rockbuzz\StdPayment\Transactions as TransactionsContract;
 
 class Transactions implements TransactionsContract
 {
@@ -19,12 +19,12 @@ class Transactions implements TransactionsContract
     /**
      * @inheritDoc
      */
-    public function findByCode($transactionCode): Result
+    public function findByCode($code): Result
     {
         try {
-            return new Result($this->getContents($transactionCode));
+            return new Result($this->getContents($code));
         } catch (\Exception $exception) {
-            throw new SDKYapayException(
+            throw new StdPaymentException(
                 $exception->getMessage(),
                 $exception->getCode(),
                 $exception

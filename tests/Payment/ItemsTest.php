@@ -3,8 +3,8 @@
 namespace Tests\Payment;
 
 use PHPUnit\Framework\TestCase;
-use Rockbuzz\SDKYapay\Payment\Item;
 use Rockbuzz\SDKYapay\Payment\Items;
+use Rockbuzz\StdPayment\ValueObject\Item;
 
 class ItemsTest extends TestCase
 {
