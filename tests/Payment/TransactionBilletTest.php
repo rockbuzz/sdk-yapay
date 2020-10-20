@@ -12,7 +12,7 @@ class TransactionBilletTest extends TestCase
      */
     public function aTransactionBoletoMustHaveToJason()
     {
-        $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . './../../');
+        $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . './../../', '.env.example');
         $dotenv->load();
 
         $dueDate = new \Datetime();

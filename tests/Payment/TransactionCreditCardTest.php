@@ -12,7 +12,7 @@ class TransactionCreditCardTest extends TestCase
      */
     public function aTransactionCreditCardMustHaveToJason()
     {
-        $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . './../../');
+        $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . './../../', '.env.example');
         $dotenv->load();
 
         $transactionCreditCard = new TransactionCreditCard(
