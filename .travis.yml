@@ -9,6 +9,12 @@ matrix:
   allow_failures:
     - php: 7.3
 
+env:
+    - SDK_YAPAY_USERNAME="username@email.com"
+    - SDK_YAPAY_PASSWORD="pass123"
+    - SDK_YAPAY_ENDPOINT="https://sandbox.gateway.yapay.com.br"
+    - SDK_YAPAY_NOTIFICATION_URL="https://notification_url.com"
+
 install:
   - composer selfupdate
   - composer install
