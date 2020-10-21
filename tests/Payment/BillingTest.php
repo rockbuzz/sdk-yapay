@@ -8,14 +8,11 @@ use Rockbuzz\StdPayment\ValueObject\{Address, Customer, Email};
 
 class BillingTest extends TestCase
 {
-    /**
-     * @test
-     */
-    public function aBillingMustHaveToJason()
+    public function test_a_billing_must_have_to_json()
     {
         $billing = new Billing(
                 new Customer(123, 'Customer Name', '123456789', new Email('example@email.com'),
-                new Address('street', 1234, '123456-789', 'center', 'City', 'ST', '')
+                new Address('street', 1234, '', '123456-789', 'center', 'City', 'ST')
             )
         );
 

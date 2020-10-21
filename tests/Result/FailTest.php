@@ -7,10 +7,7 @@ use Rockbuzz\SDKYapay\Result\Fail;
 
 class FailTest extends TestCase
 {
-    /**
-     * @test
-     */
-    public function aFailMustHaveToJason()
+    public function test_a_fail_must_have_to_jason()
     {
         $fail = new Fail('500', 'Test Message', 1, '123');
 

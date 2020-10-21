@@ -38,9 +38,6 @@ class Result implements ResultContract
         );
     }
 
-    /**
-     * @return bool
-     */
     public function isSuccess(): bool
     {
         return !array_key_exists('erro', json_decode($this->json));

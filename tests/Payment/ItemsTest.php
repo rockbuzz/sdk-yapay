@@ -8,20 +8,14 @@ use Rockbuzz\StdPayment\ValueObject\Item;
 
 class ItemsTest extends TestCase
 {
-    /**
-     * @test
-     */
-    public function shouldThrowExceptionWhenCreatingAnItemWithoutItem()
+    public function test_should_throw_exception_when_creating_an_item_without_item()
     {
         $this->expectException(\TypeError::class);
 
         new Items(['no-item']);
     }
 
-    /**
-     * @test
-     */
-    public function aItemsMustHaveToJason()
+    public function test_a_items_must_have_to_json()
     {
         $items = new Items([
             new Item('12345', 'Product Name', 1478),

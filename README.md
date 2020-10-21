@@ -185,7 +185,7 @@ $jsonAbout = json_encode($about);
 
 `Payment done can throw an exception`
 ```php
-Rockbuzz\SDKYapay\Exception\PaymentException::class
+Rockbuzz\StdPayment\StdPaymentException::class
 ```
 
 ## Contributing

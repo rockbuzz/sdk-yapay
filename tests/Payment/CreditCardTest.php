@@ -7,10 +7,7 @@ use Rockbuzz\SDKYapay\Payment\CreditCard;
 
 class CreditCardTest extends TestCase
 {
-    /**
-     * @test
-     */
-    public function aCreditCardMustHaveToJason()
+    public function test_a_credit_card_must_have_to_json()
     {
         $creditCard = new CreditCard('Test Name', 123456789, 123, 10, 2020);
 

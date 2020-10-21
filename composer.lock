@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "06dd242d15225abaf4905c858d30b34c",
+    "content-hash": "eb49de73552c622df36b679fce1bbf3b",
     "packages": [
         {
             "name": "graham-campbell/result-type",
@@ -459,16 +459,16 @@
         },
         {
             "name": "rockbuzz/std-payment",
-            "version": "0.0.1",
+            "version": "0.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rockbuzz/std-payment.git",
-                "reference": "f9b4697f2371ecf8dafdc799b29f9a4798f2b270"
+                "reference": "64328e2cf0f90b4f77bc2f87fac095814b913d9d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rockbuzz/std-payment/zipball/f9b4697f2371ecf8dafdc799b29f9a4798f2b270",
-                "reference": "f9b4697f2371ecf8dafdc799b29f9a4798f2b270",
+                "url": "https://api.github.com/repos/rockbuzz/std-payment/zipball/64328e2cf0f90b4f77bc2f87fac095814b913d9d",
+                "reference": "64328e2cf0f90b4f77bc2f87fac095814b913d9d",
                 "shasum": ""
             },
             "require": {
@@ -491,8 +491,8 @@
                     "email": "tiago.dweb@gmail.com"
                 }
             ],
-            "description": "Standard Payment",
-            "time": "2020-10-20T14:30:16+00:00"
+            "description": "This package aims to abstract communication with payment services.",
+            "time": "2020-10-21T12:33:16+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",

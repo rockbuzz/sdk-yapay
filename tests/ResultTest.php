@@ -8,10 +8,7 @@ use Rockbuzz\SDKYapay\Result\{Fail, Success};
 
 class ResultTest extends TestCase
 {
-    /**
-     * @test
-     */
-    public function aResultMustHaveToFailObject()
+    public function test_a_result_must_have_to_fail_object()
     {
         $result = new Result('
             {
@@ -26,10 +23,7 @@ class ResultTest extends TestCase
         $this->assertInstanceOf(Fail::class, $result->about());
     }
 
-    /**
-     * @test
-     */
-    public function aResultMustHaveToSuccessObject()
+    public function test_a_result_must_have_to_success_object()
     {
         $result = new Result('
             {

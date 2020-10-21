@@ -4,15 +4,10 @@ namespace Tests\Payment;
 
 use PHPUnit\Framework\TestCase;
 use Rockbuzz\SDKYapay\Payment\ExtraFields;
-use Rockbuzz\SDKYapay\Payment\Item;
-use Rockbuzz\SDKYapay\Payment\Items;
 
 class ExtraFieldsTest extends TestCase
 {
-    /**
-     * @test
-     */
-    public function aItemsMustHaveToJason()
+    public function test_a_items_must_have_to_json()
     {
         $extraFields = new ExtraFields([
             'extra one',

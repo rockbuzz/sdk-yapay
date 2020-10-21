@@ -7,10 +7,7 @@ use Rockbuzz\SDKYapay\Result\Success;
 
 class SuccessTest extends TestCase
 {
-    /**
-     * @test
-     */
-    public function aSuccessHaveIsBillet()
+    public function test_a_success_have_is_billet()
     {
         $success = new Success(json_encode([
             'codigoFormaPagamento' => 17
@@ -37,10 +34,7 @@ class SuccessTest extends TestCase
         $this->assertFalse($success->isBillet());
     }
 
-    /**
-     * @test
-     */
-    public function aSuccessHaveIsCreditCard()
+    public function test_a_success_have_is_creditCard()
     {
         $success = new Success(json_encode([
             'codigoFormaPagamento' => 170
@@ -121,10 +115,7 @@ class SuccessTest extends TestCase
         $this->assertFalse($success->isCreditCard());
     }
 
-    /**
-     * @test
-     */
-    public function aSuccessHaveIsPaid()
+    public function test_a_success_have_is_paid()
     {
         $success = new Success(json_encode([
             'statusTransacao' => 1
@@ -157,10 +148,7 @@ class SuccessTest extends TestCase
         $this->assertFalse($success->isPaid());
     }
 
-    /**
-     * @test
-     */
-    public function aSuccessHaveIsWaiting()
+    public function test_a_success_have_is_waiting()
     {
         $success = new Success(json_encode([
             'statusTransacao' => 2
@@ -199,10 +187,7 @@ class SuccessTest extends TestCase
         $this->assertFalse($success->isWaiting());
     }
 
-    /**
-     * @test
-     */
-    public function aSuccessHaveIsRejected()
+    public function test_a_success_have_is_rejected()
     {
         $success = new Success(json_encode([
             'statusTransacao' => 3
@@ -259,10 +244,7 @@ class SuccessTest extends TestCase
         $this->assertFalse($success->isRejected());
     }
 
-    /**
-     * @test
-     */
-    public function aSuccessHaveIsBilletPaidLower()
+    public function test_a_success_have_is_billet_paid_lower()
     {
         $success = new Success(json_encode([
             'statusTransacao' => 21
@@ -283,10 +265,7 @@ class SuccessTest extends TestCase
         $this->assertFalse($success->isBilletPaidLower());
     }
 
-    /**
-     * @test
-     */
-    public function aSuccessHaveIsBilletPaidUpper()
+    public function test_a_success_have_is_billet_paid_upper()
     {
         $success = new Success(json_encode([
             'statusTransacao' => 22
@@ -308,10 +287,7 @@ class SuccessTest extends TestCase
         $this->assertFalse($success->isBilletPaidUpper());
     }
 
-    /**
-     * @test
-     */
-    public function aSuccessMustHaveToJsonCreditCard()
+    public function test_a_success_must_have_to_json_creditCard()
     {
         $data = [
             'numeroTransacao' => 123,
@@ -338,10 +314,7 @@ class SuccessTest extends TestCase
         $this->assertEquals($json, json_encode($success));
     }
 
-    /**
-     * @test
-     */
-    public function aSuccessMustHaveToJsonBillet()
+    public function test_a_success_must_have_to_json_billet()
     {
         $data = [
             'numeroTransacao' => 123,
@@ -363,10 +336,7 @@ class SuccessTest extends TestCase
         $this->assertEquals($json, json_encode($success));
     }
 
-    /**
-     * @test
-     */
-    public function aSuccessHaveGetTransactionNumber()
+    public function test_a_success_have_get_transaction_number()
     {
         $data = [
             'numeroTransacao' => 123,
@@ -377,10 +347,7 @@ class SuccessTest extends TestCase
         $this->assertEquals(123, $success->getTransactionNumber());
     }
 
-    /**
-     * @test
-     */
-    public function aSuccessHaveGetBilletUrl()
+    public function test_a_success_have_get_billet_url()
     {
         $data = [
             'urlPagamento' => 'http://www.pagamento.com.br',
