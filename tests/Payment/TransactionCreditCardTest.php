@@ -7,10 +7,7 @@ use Rockbuzz\SDKYapay\Payment\TransactionCreditCard;
 
 class TransactionCreditCardTest extends TestCase
 {
-    /**
-     * @test
-     */
-    public function aTransactionCreditCardMustHaveToJason()
+    public function test_a_transaction_credit_card_must_have_to_json()
     {
         $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . './../../', '.env.example');
         $dotenv->load();

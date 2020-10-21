@@ -7,10 +7,7 @@ use Rockbuzz\SDKYapay\Payment\TransactionBillet;
 
 class TransactionBilletTest extends TestCase
 {
-    /**
-     * @test
-     */
-    public function aTransactionBoletoMustHaveToJason()
+    public function test_a_transaction_boleto_must_have_to_json()
     {
         $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . './../../', '.env.example');
         $dotenv->load();
