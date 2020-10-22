@@ -8,7 +8,7 @@ use Rockbuzz\SDKYapay\Payment\Billing;
 abstract class BasePayment
 {
     /**
-     * @var int
+     * @var mixed
      */
     protected $methodCode;
 

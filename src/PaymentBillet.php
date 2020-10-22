@@ -4,8 +4,9 @@ namespace Rockbuzz\SDKYapay;
 
 use Rockbuzz\StdPayment\Payment;
 use GuzzleHttp\{Client, ClientInterface};
+use Rockbuzz\SDKYapay\Contract\Transaction;
 use Rockbuzz\StdPayment\StdPaymentException;
-use Rockbuzz\SDKYapay\Payment\{Items, Billing};
+use Rockbuzz\SDKYapay\Payment\{Items, Billing, Method};
 use Rockbuzz\StdPayment\Result as ResultContract;
 use Rockbuzz\SDKYapay\Payment\{ExtraFields, TransactionBillet};
 
@@ -26,7 +27,7 @@ class PaymentBillet extends BasePayment implements Payment
     protected $client;
 
     public function __construct(
-        TransactionBillet $transaction,
+        Transaction $transaction,
         Items $items,
         Billing $billing,
         ExtraFields $extraFields = null,
@@ -40,7 +41,7 @@ class PaymentBillet extends BasePayment implements Payment
 
     protected function methodCode(): int
     {
-        return 1;
+        return Method::BOLETO;
     }
 
     /**

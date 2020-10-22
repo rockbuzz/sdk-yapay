@@ -20,5 +20,8 @@ abstract class BaseTransaction
         $this->value = $value;
     }
 
-    abstract protected function notificationUrl(): string;
+    public function notificationUrl(): string
+    {
+        return $_ENV['SDK_YAPAY_NOTIFICATION_URL'];
+    }
 }

@@ -2,9 +2,9 @@
 
 namespace Rockbuzz\SDKYapay\Payment;
 
-use JsonSerializable;
+use Rockbuzz\SDKYapay\Contract\Transaction;
 
-class TransactionCreditCard extends BaseTransaction implements JsonSerializable
+class TransactionCreditCard extends BaseTransaction implements Transaction
 {
     /**
      * @var int
@@ -18,11 +18,6 @@ class TransactionCreditCard extends BaseTransaction implements JsonSerializable
     ) {
         parent::__construct($number, $value);
         $this->installments = $installments;
-    }
-
-    protected function notificationUrl(): string
-    {
-        return $_ENV['SDK_YAPAY_NOTIFICATION_URL'];
     }
 
     /**

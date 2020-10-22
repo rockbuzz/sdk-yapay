@@ -8,6 +8,8 @@ use Rockbuzz\StdPayment\Payment;
 use Rockbuzz\SDKYapay\Payment\Items;
 use Rockbuzz\SDKYapay\Payment\Billing;
 use Rockbuzz\SDKYapay\Payment\CreditCard;
+use Rockbuzz\SDKYapay\Contract\Transaction;
+use Rockbuzz\SDKYapay\Payment\Method;
 use Rockbuzz\StdPayment\StdPaymentException;
 use Rockbuzz\StdPayment\Result as ResultContract;
 use Rockbuzz\SDKYapay\Payment\TransactionCreditCard;
@@ -30,7 +32,7 @@ class PaymentCreditCard extends BasePayment implements Payment
     protected $client;
 
     public function __construct(
-        TransactionCreditCard $transaction,
+        Transaction $transaction,
         CreditCard $creditCard,
         Items $items,
         Billing $billing,
@@ -44,7 +46,7 @@ class PaymentCreditCard extends BasePayment implements Payment
 
     protected function methodCode(): int
     {
-        return 2;
+        return Method::CREDITCARD;
     }
 
     /**

@@ -3,11 +3,21 @@
 namespace Tests\Payment;
 
 use PHPUnit\Framework\TestCase;
+use Rockbuzz\SDKYapay\Contract\Transaction;
 use Rockbuzz\SDKYapay\Payment\TransactionCreditCard;
 
 class TransactionCreditCardTest extends TestCase
 {
-    public function test_a_transaction_credit_card_must_have_to_json()
+    public function test_a_creditcard_transaction_must_implement_the_transaction_contract()
+    {
+        $transaction = new TransactionCreditCard(
+            123, 1598, 2
+        );
+
+        $this->assertInstanceOf(Transaction::class, $transaction);
+    }
+
+    public function test_a_creditcard_transaction_must_have_to_json()
     {
         $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . './../../', '.env.example');
         $dotenv->load();

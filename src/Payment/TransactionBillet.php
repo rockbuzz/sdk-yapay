@@ -3,9 +3,9 @@
 namespace Rockbuzz\SDKYapay\Payment;
 
 use Datetime;
-use JsonSerializable;
+use Rockbuzz\SDKYapay\Contract\Transaction;
 
-class TransactionBillet extends BaseTransaction implements JsonSerializable
+class TransactionBillet extends BaseTransaction implements Transaction
 {
     /**
      * @var Datetime
@@ -19,11 +19,6 @@ class TransactionBillet extends BaseTransaction implements JsonSerializable
     ) {
         parent::__construct($number, $value);
         $this->dueDate = $dueDate;
-    }
-
-    protected function notificationUrl(): string
-    {
-        return $_ENV['SDK_YAPAY_NOTIFICATION_URL'];
     }
 
     /**
