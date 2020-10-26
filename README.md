@@ -16,6 +16,10 @@ $ composer require rockbuzz/sdk-yapay
 
 ## Usage
 
+```bash
+$ cp .env.example .env
+```
+
 `Payment Boleto`
 ```php
 <?php
