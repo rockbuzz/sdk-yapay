@@ -11,7 +11,9 @@ class TransactionBilletTest extends TestCase
     public function test_a_boleto_transaction_must_implement_the_transaction_contract()
     {
         $transaction = new TransactionBillet(
-            123, 1598, new \Datetime()
+            123,
+            1598,
+            new \Datetime()
         );
 
         $this->assertInstanceOf(Transaction::class, $transaction);
@@ -24,7 +26,9 @@ class TransactionBilletTest extends TestCase
 
         $dueDate = new \Datetime();
         $transactionBoleto = new TransactionBillet(
-            123, 1598, $dueDate
+            123,
+            1598,
+            $dueDate
         );
 
         $json = json_encode([

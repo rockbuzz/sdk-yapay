@@ -3,7 +3,6 @@
 namespace Rockbuzz\SDKYapay\Payment;
 
 use JsonSerializable;
-use Rockbuzz\StdPayment\ValueObject\Customer;
 
 class Billing implements JsonSerializable
 {

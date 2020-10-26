@@ -11,7 +11,9 @@ class TransactionCreditCardTest extends TestCase
     public function test_a_creditcard_transaction_must_implement_the_transaction_contract()
     {
         $transaction = new TransactionCreditCard(
-            123, 1598, 2
+            123,
+            1598,
+            2
         );
 
         $this->assertInstanceOf(Transaction::class, $transaction);
@@ -23,7 +25,9 @@ class TransactionCreditCardTest extends TestCase
         $dotenv->load();
 
         $transactionCreditCard = new TransactionCreditCard(
-            123, 1598, 2
+            123,
+            1598,
+            2
         );
 
         $json = json_encode([

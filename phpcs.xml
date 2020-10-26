@@ -3,8 +3,15 @@
     <arg name="colors"/>
     <arg value="p"/>
     <file>src</file>
+    <file>tests</file>
     <rule ref="PSR2"/>
     <rule ref="PSR2.Namespaces.UseDeclaration">
         <exclude-pattern>*</exclude-pattern>
+    </rule>
+    <rule ref="PSR1.Methods.CamelCapsMethodName.NotCamelCaps">
+        <exclude-pattern>tests/</exclude-pattern>
+    </rule>
+    <rule ref="Generic.Files.LineLength">
+        <exclude-pattern>tests/ResultTest.php</exclude-pattern>
     </rule>
 </ruleset>
