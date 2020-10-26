@@ -178,16 +178,6 @@ $jsonAbout = json_encode($about);
 }
 ```
 
-`Payment factory fromArray can throw an exception`
-```php
-\DomainException::class
-```
-
-`Payment done can throw an exception`
-```php
-Rockbuzz\StdPayment\StdPaymentException::class
-```
-
 ## Contributing
 
 Add new features.

@@ -9,6 +9,13 @@ use Rockbuzz\StdPayment\ValueObject\{Address, Email, Item};
 
 class PaymentBoletoFactory
 {
+    /**
+     * Undocumented function
+     *
+     * @param array $params
+     * @return PaymentBillet
+     * @throws \Exception
+     */
     public static function fromArray(array $params): PaymentBillet
     {
         return new PaymentBillet(
