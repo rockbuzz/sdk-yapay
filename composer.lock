@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d94c26beb23c0b30c7f6d8c5ce83b3f2",
+    "content-hash": "99208c07d736b4bc7e60ab205ec4e143",
     "packages": [
         {
             "name": "graham-campbell/result-type",
@@ -414,7 +414,7 @@
         },
         {
             "name": "rockbuzz/std-payment",
-            "version": "0.0.3",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rockbuzz/std-payment.git",
