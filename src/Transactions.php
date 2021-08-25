@@ -2,40 +2,47 @@
 
 namespace Rockbuzz\SDKYapay;
 
+use DomainException;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
-use Rockbuzz\SDKYapay\Contract\Payments;
 use GuzzleHttp\Exception\GuzzleException;
-use Rockbuzz\SDKYapay\Exception\PaymentException;
+use Rockbuzz\SDKYapay\Exception\YapayException;
+use Rockbuzz\SDKYapay\Contract\Transactions as ITransactions;
 
-class Transactions implements Payments
+class Transactions implements ITransactions
 {
-    /**
-     * @var Config
-     */
+    /** @var Config */
     private $config;
-    /**
-     * @var int
-     */
-    private $numberTransaction;
 
-    public function __construct(
-        Config $config,
-        int $numberTransaction
-    ) {
+    /** @var ClientInterface */
+    private $client;
+
+    public function __construct(Config $config, ClientInterface $client = null) 
+    {
         $this->config = $config;
-        $this->numberTransaction = $numberTransaction;
+        $this->client = $client ?? new Client();
+    }
+
+    /** @var DomainException */
+    public static function make(array $config, ClientInterface $client = null): self
+    {
+        return new static(new Config(
+            self::getValue('store_code', $config), 
+            self::getValue('username', $config), 
+            self::getValue('password', $config),
+            self::getValue('endpoint', $config)
+        ), $client);
     }
 
     /**
      * @inheritDoc
      */
-    public function findByStoreCodeAndPaymentCode(ClientInterface $client = null): Result
+    public function findByNumber(int $number): Result
     {
         try {
-            return new Result($this->getContents($client ?? new Client()));
+            return new Result($this->getContents($number));
         } catch (\Exception $exception) {
-            throw new Paymentexception(
+            throw new YapayException(
                 $exception->getMessage(),
                 $exception->getCode(),
                 $exception
@@ -44,13 +51,12 @@ class Transactions implements Payments
     }
 
     /**
-     * @param ClientInterface $client
      * @return string
      * @throws GuzzleException
      */
-    private function getContents(ClientInterface $client): string
+    private function getContents(int $number): string
     {
-        $response = $client->request('GET', $this->config->getEndpoint(), [
+        $response = $this->client->request('GET', $this->config->getEndpoint() . '/' . $number, [
             'headers' => [
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json'
@@ -62,5 +68,19 @@ class Transactions implements Payments
         ]);
 
         return $response->getBody()->getContents();
+    }
+
+    /**
+     * @param string $key
+     * @param array $params
+     * @throws DomainException
+     */
+    private static function getValue(string $key, array $params)
+    {
+        if (array_key_exists($key, $params)) {
+            return $params[$key];
+        }
+
+        throw new DomainException("Key {$key} is required");
     }
 }

@@ -4,13 +4,13 @@ namespace Rockbuzz\SDKYapay;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
-use Rockbuzz\SDKYapay\Payment\ExtraFields;
 use Rockbuzz\SDKYapay\Payment\Items;
 use Rockbuzz\SDKYapay\Payment\Billing;
 use Rockbuzz\SDKYapay\Contract\Payment;
 use GuzzleHttp\Exception\GuzzleException;
+use Rockbuzz\SDKYapay\Payment\ExtraFields;
+use Rockbuzz\SDKYapay\Exception\YapayException;
 use Rockbuzz\SDKYapay\Payment\TransactionBillet;
-use Rockbuzz\SDKYapay\Exception\PaymentException;
 
 class PaymentBillet extends BasePayment implements Payment
 {
@@ -44,7 +44,7 @@ class PaymentBillet extends BasePayment implements Payment
         try {
             return new Result($this->getContents($client ?? new Client()));
         } catch (\Exception $exception) {
-            throw new Paymentexception(
+            throw new YapayException(
                 $exception->getMessage(),
                 $exception->getCode(),
                 $exception

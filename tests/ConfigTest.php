@@ -7,14 +7,13 @@ use Rockbuzz\SDKYapay\Config;
 
 class ConfigTest extends TestCase
 {
-    /**
-     * @test
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage config must have a valid endpoint url
-     */
+    /** @test */
     public function anConfigMustHaveAValidEndpointUrl()
     {
         $config = new Config(123, 'username', 'password', 'no-url');
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('config must have a valid endpoint url');
 
         $config->getEndpoint();
     }

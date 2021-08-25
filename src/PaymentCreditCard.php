@@ -9,7 +9,7 @@ use Rockbuzz\SDKYapay\Payment\Billing;
 use Rockbuzz\SDKYapay\Contract\Payment;
 use GuzzleHttp\Exception\GuzzleException;
 use Rockbuzz\SDKYapay\Payment\CreditCard;
-use Rockbuzz\SDKYapay\Exception\PaymentException;
+use Rockbuzz\SDKYapay\Exception\YapayException;
 use Rockbuzz\SDKYapay\Payment\TransactionCreditCard;
 
 class PaymentCreditCard extends BasePayment implements Payment
@@ -46,7 +46,7 @@ class PaymentCreditCard extends BasePayment implements Payment
         try {
             return new Result($this->getContents($client ?? new Client()));
         } catch (\Exception $exception) {
-            throw new Paymentexception(
+            throw new YapayException(
                 $exception->getMessage(),
                 $exception->getCode(),
                 $exception

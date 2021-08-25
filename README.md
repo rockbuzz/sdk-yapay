@@ -2,11 +2,11 @@
 
 Layer to abstract communication with Yapay Payment API.
 
-[![Build Status](https://travis-ci.org/rockbuzz/sdk-yapay.svg?branch=master)](https://travis-ci.org/rockbuzz/sdk-yapay)
+<p><img src="https://github.com/rockbuzz/sdk-yapay/workflows/Main/badge.svg"/></p>
 
 ## Requirements
 
-PHP >=7.1
+PHP >=7.3
 
 ## Install
 
@@ -123,6 +123,27 @@ try {
 }
 ```
 
+`Payment CreditCard`
+```php
+<?php
+
+use Rockbuzz\SDKYapay\Transactions;
+
+$config = [
+    'store_code' => 1234,
+    'username' => 'your_user',
+    'password' => 'your_pass',
+    'endpoint' => 'https://sandbox.gateway.yapay.com.br/checkout/api/v3/transacao'
+];
+
+try {
+    $transactions = Transactions::make($config);
+    $result = $transactions->findByNumber(123);
+} catch (\Exception $e) {
+    //
+}
+```
+
 `Result`
 ```php
 
@@ -189,7 +210,12 @@ $jsonAbout = json_encode($about);
 
 `Payment done can throw an exception`
 ```php
-Rockbuzz\SDKYapay\Exception\PaymentException::class
+Rockbuzz\SDKYapay\Exception\YapayException::class
+```
+
+`Transaction findByNumber can throw an exception`
+```php
+Rockbuzz\SDKYapay\Exception\YapayException::class
 ```
 
 ## Contributing
