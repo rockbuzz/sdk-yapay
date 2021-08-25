@@ -34,7 +34,7 @@ class AddressTest extends TestCase
      */
     public function anAddressMustHaveATwoCharacterCountry()
     {
-        $address = new Address('street', 123, '12345678', 'neigh', 'city','ST', null, 'CTR');
+        $address = new Address('street', 123, '12345678', 'neigh', 'city', 'ST', null, 'CTR');
 
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('country must be two characters');

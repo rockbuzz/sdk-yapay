@@ -28,12 +28,11 @@ abstract class BasePayment
     protected $billing;
 
     public function __construct(
-        Config $config, 
+        Config $config,
         int $methodCode,
         Items $items,
         Billing $billing
-    )
-    {
+    ) {
         $this->config = $config;
         $this->methodCode = $methodCode;
         $this->items = $items;

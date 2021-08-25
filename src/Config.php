@@ -27,12 +27,11 @@ class Config
     protected $endpoint;
 
     public function __construct(
-        int $storeCode, 
-        string $username, 
-        string $password, 
+        int $storeCode,
+        string $username,
+        string $password,
         string $endpoint
-    )
-    {
+    ) {
         $this->storeCode = $storeCode;
         $this->username = $username;
         $this->password = $password;

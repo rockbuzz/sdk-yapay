@@ -31,8 +31,7 @@ class PaymentCreditCard extends BasePayment implements Payment
         CreditCard $creditCard,
         Items $items,
         Billing $billing
-    )
-    {
+    ) {
         parent::__construct($config, $methodCode, $items, $billing);
         $this->transaction = $transaction;
         $this->creditCard = $creditCard;

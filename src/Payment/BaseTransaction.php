@@ -20,13 +20,12 @@ class BaseTransaction
     protected $notificationUrl;
 
     public function __construct(
-        int $number, 
-        int $value, 
+        int $number,
+        int $value,
         string $notificationUrl
-    )
-    {
-        $this->number = $number;      
-        $this->value = $value;      
-        $this->notificationUrl = $notificationUrl;      
+    ) {
+        $this->number = $number;
+        $this->value = $value;
+        $this->notificationUrl = $notificationUrl;
     }
 }

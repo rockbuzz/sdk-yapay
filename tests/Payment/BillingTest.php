@@ -16,7 +16,11 @@ class BillingTest extends TestCase
     public function aBillingMustHaveToJason()
     {
         $billing = new Billing(
-                new Customer(123, 'Customer Name', '123456789', new Email('example@email.com'),
+            new Customer(
+                123,
+                'Customer Name',
+                '123456789',
+                new Email('example@email.com'),
                 new Address('street', 1234, '123456-789', 'center', 'City', 'ST', '')
             )
         );

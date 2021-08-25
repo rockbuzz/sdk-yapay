@@ -18,7 +18,8 @@ class ResultTest extends TestCase
             {
                 "erro": {
                     "codigo": "1",
-                    "mensagem": "Erro Interno. : Problemas ao receber transacao. Forma de Pagamento inexistente ou nao configurada para este estabelecimento, valor enviado: 17"
+                    "mensagem": "Erro Interno. : Problemas ao receber transacao. '.
+                    'Forma de Pagamento inexistente ou nao configurada para este estabelecimento, valor enviado: 17"
                 },
                 "statusTransacao": 0,
                 "codigoEstabelecimento": "1505378933066"
@@ -37,7 +38,8 @@ class ResultTest extends TestCase
                 "valor": 100,
                 "parcelas": 1,
                 "autorizacao": "0",
-                "urlPagamento": "https://sandbox.gateway.yapay.com.br/checkout/GeradorBoleto.do?cod=156900423688611572119-8d92-4624-a7a6-8256a862e700",
+                "urlPagamento": "https://sandbox.gateway.yapay.com.br/checkout/GeradorBoleto.do?'.
+                'cod=156900423688611572119-8d92-4624-a7a6-8256a862e700",
                 "valorDesconto": 0,
                 "numeroTransacao": 80000008,
                 "statusTransacao": 5,

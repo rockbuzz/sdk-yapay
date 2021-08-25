@@ -17,7 +17,7 @@ class Transactions implements ITransactions
     /** @var ClientInterface */
     private $client;
 
-    public function __construct(Config $config, ClientInterface $client = null) 
+    public function __construct(Config $config, ClientInterface $client = null)
     {
         $this->config = $config;
         $this->client = $client ?? new Client();
@@ -27,8 +27,8 @@ class Transactions implements ITransactions
     public static function make(array $config, ClientInterface $client = null): self
     {
         return new static(new Config(
-            self::getValue('store_code', $config), 
-            self::getValue('username', $config), 
+            self::getValue('store_code', $config),
+            self::getValue('username', $config),
             self::getValue('password', $config),
             self::getValue('endpoint', $config)
         ), $client);

@@ -13,7 +13,10 @@ class TransactionCreditCardTest extends TestCase
     public function aTransactionCreditCardMustHaveToJason()
     {
         $transactionCreditCard = new TransactionCreditCard(
-            123, 1598, 2, 'http://notification-url.com'
+            123,
+            1598,
+            2,
+            'http://notification-url.com'
         );
 
         $json = json_encode([

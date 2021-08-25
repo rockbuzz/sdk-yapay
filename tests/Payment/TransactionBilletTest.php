@@ -14,7 +14,10 @@ class TransactionBilletTest extends TestCase
     {
         $dueDate = new \Datetime();
         $transactionBoleto = new TransactionBillet(
-            123, 1598, $dueDate, 'http://notification-url.com'
+            123,
+            1598,
+            $dueDate,
+            'http://notification-url.com'
         );
 
         $json = json_encode([

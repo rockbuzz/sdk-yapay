@@ -13,27 +13,27 @@ class PaymentCreditCardFactory
     {
         return new PaymentCreditCard(
             new Config(
-                self::getValue('store_code', $params), 
-                self::getValue('username', $params), 
+                self::getValue('store_code', $params),
+                self::getValue('username', $params),
                 self::getValue('password', $params),
                 self::getValue('endpoint', $params)
-            ), 
-            2, 
+            ),
+            2,
             new TransactionCreditCard(
                 self::getValue('transaction_number', $params),
                 self::getValue('transaction_value', $params),
                 self::getValue('transaction_due_date', $params),
                 self::getValue('transaction_notification_url', $params)
-            ), 
+            ),
             new CreditCard(
                 self::getValue('creditcard_name', $params),
                 self::getValue('creditcard_number', $params),
                 self::getValue('creditcard_code', $params),
                 self::getValue('creditcard_month', $params),
                 self::getValue('creditcard_year', $params)
-            ), 
+            ),
             new Items(
-                array_map(function($item) use ($params) {
+                array_map(function ($item) use ($params) {
                     return new Item(
                         self::getValue('id', $item),
                         self::getValue('name', $item),
@@ -41,13 +41,13 @@ class PaymentCreditCardFactory
                         self::getValue('quantity', $item)
                     );
                 }, self::getValue('items', $params))
-            ), 
+            ),
             new Billing(
                 new Customer(
                     self::getValue('customer_id', $params),
                     self::getValue('customer_name', $params),
                     self::getValue('customer_document', $params),
-                    new Email(self::getValue('email', $params)), 
+                    new Email(self::getValue('email', $params)),
                     new Address(
                         self::getValue('street', $params),
                         self::getValue('number', $params),
