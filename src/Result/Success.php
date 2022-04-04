@@ -109,7 +109,7 @@ class Success implements JsonSerializable
             'valor' => $this->json->valor,
             'valorDesconto' => $this->json->valorDesconto,
             'parcelas' => $this->json->parcelas,
-            'autorizacao' => $this->json->autorizacao,
+            'autorizacao' => $this->json->autorizacao ?? null,
             'codigoTransacaoOperadora' => $this->json->codigoTransacaoOperadora,
             'urlPagamento' => $this->json->urlPagamento
         ];
