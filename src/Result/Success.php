@@ -33,7 +33,8 @@ class Success implements JsonSerializable
         25 => 'Falha ao enviar estorno para a operadora',
         27 => 'Pedido parcialmente cancelado na adquirente',
         30 => 'Número da transação já existe, enviar um número de pedido diferente',
-        31 => 'Transação já existente e finalizada na adquirente *Orientamos a verificação da transação antes de ser realizado qualquer ação no pedido/produto',
+        31 => 'Transação já existente e finalizada na adquirente *Orientamos a verificação da transação '.
+        'antes de ser realizado qualquer ação no pedido/produto',
         40 => 'Processo de cancelamento em andamento',
         49 => 'Pedido em análise manual pelo lojista',
         50 => 'Pedido recusado manualmente pelo lojista'
