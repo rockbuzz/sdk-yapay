@@ -14,6 +14,31 @@ class Success implements JsonSerializable
     const TRANSACTION_STATUS_BILLET_LOWER = 21;
     const TRANSACTION_STATUS_BILLET_UPPER = 22;
 
+    const STATUS_MESSAGE = [
+        1 => 'Transação está autorizada e confirmada na instituição financeira',
+        2 => 'Transação está apenas autorizada, aguardando confirmação (captura)',
+        3 => 'Transação negada pela instituição financeira',
+        5 => 'Comum para pagamentos cartão redirect ou pagamentos com autenticação',
+        8 => 'Comum para pagamentos com boletos e pedidos em reprocessamento',
+        9 => 'Houve um problema no processamento com a adquirente',
+        13 => 'Transação cancelada na adquirente',
+        14 => 'A venda foi estornada na adquirente',
+        15 => 'A transação foi enviada para o sistema de análise de riscos. Status transitório',
+        17 => 'A transação foi negada pelo sistema análise de risco',
+        18 => 'Falha. Não foi possível enviar pedido para a análise de Risco, porém será reenviado',
+        21 => 'O boleto foi pago com valor menor do emitido',
+        22 => 'O boleto foi pago com valor maior do emitido',
+        23 => 'A venda estonada na adquirente parcialmente',
+        24 => 'O Estorno não foi autorizado pela adquirente',
+        25 => 'Falha ao enviar estorno para a operadora',
+        27 => 'Pedido parcialmente cancelado na adquirente',
+        30 => 'Número da transação já existe, enviar um número de pedido diferente',
+        31 => 'Transação já existente e finalizada na adquirente *Orientamos a verificação da transação antes de ser realizado qualquer ação no pedido/produto',
+        40 => 'Processo de cancelamento em andamento',
+        49 => 'Pedido em análise manual pelo lojista',
+        50 => 'Pedido recusado manualmente pelo lojista'
+    ];
+
     /**
      * @var string
      */
@@ -125,5 +150,11 @@ class Success implements JsonSerializable
         }
 
         return $data;
+    }
+
+    public function message()
+    {
+        return static::STATUS_MESSAGE[$this->json->statusTransacao] ?? 
+        'Ouve uma falha no seu pagamento, contate o suporte.';
     }
 }
