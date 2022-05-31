@@ -154,7 +154,7 @@ class Success implements JsonSerializable
 
     public function message()
     {
-        return static::STATUS_MESSAGE[$this->json->statusTransacao] ?? 
+        return static::STATUS_MESSAGE[$this->json->statusTransacao] ??
         'Ouve uma falha no seu pagamento, contate o suporte.';
     }
 }
